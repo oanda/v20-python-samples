@@ -1,0 +1,3 @@
+[console_scripts]
+v20-configure = configure:main
+
