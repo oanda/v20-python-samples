@@ -7,7 +7,8 @@ setup(
     package_dir={'': 'src'},
     entry_points={
         'console_scripts': [
-            'v20-configure = configure:main'
+            'v20-configure = configure:main',
+            'v20-account-details = account.details:main'
         ]
     }
 )

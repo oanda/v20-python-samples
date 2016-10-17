@@ -1,3 +1,4 @@
 [console_scripts]
+v20-account-details = account.details:main
 v20-configure = configure:main
 
