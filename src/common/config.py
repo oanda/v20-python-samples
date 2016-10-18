@@ -131,7 +131,7 @@ class Config(object):
         self.streaming_hostname = streaming_hostnames[index]
 
         print("> API host selected is: {}".format(self.hostname))
-        print("> Streaming host selected is: {}".format(self.hostname))
+        print("> Streaming host selected is: {}".format(self.streaming_hostname))
         print()
 
         self.username = input.get_string("Enter username", self.username)
