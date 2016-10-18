@@ -1,23 +1,42 @@
-from __future__ import print_function
-
 import sys
 
 from tabulate import tabulate
 
 
 def print_title(s):
-    print(s)
-    print(len(s) * "=")
-    print()
+    """
+    Print a string as a title with a strong underline
+
+    Args:
+        s: string to print as a title
+    """
+    print s
+    print len(s) * "="
+    print
 
 
 def print_subtitle(s):
-    print(s)
-    print(len(s) * "-")
-    print()
+    """
+    Print a string as a subtitle with an underline
+
+    Args:
+        s: string to print as a title
+    """
+    print s
+    print len(s) * "-"
+    print
 
 
 def print_entity(title, entity):
+    """
+    Print an entity as a title along with the tabular representation
+    of the entity.
+
+    Args:
+        title: The title to print
+        entity: The entity to print
+    """
+
     if title is not None and len(title) > 0:
         print_title(title)
 
@@ -42,10 +61,20 @@ def print_entity(title, entity):
             tablefmt=tablefmt
         ).encode('utf-8')
     )
-    print()
+    print
 
 
 def print_collection(title, entities, columns):
+    """
+    Print a collection of entities with specified headers and formatters
+
+    Args:
+        title: The title to pring
+        entites: The collection to print, one per row in the table
+        columns: Tuple of column header name and column row formatter to be
+                 applied to each entity in the collection
+    """
+
     if len(entities) == 0:
         return
 
@@ -67,90 +96,8 @@ def print_collection(title, entities, columns):
             tablefmt=tablefmt
         ).encode('utf-8')
     )
-    print()
+    print
 
-
-def print_trade_summaries(trades):
-    print_collection(
-        "Open Trades",
-        trades,
-        [
-            ("ID", lambda t: t.id),
-            ("Summary", lambda t: t.summary()),
-            ("Unrealized P/L", lambda t: t.unrealizedPL)
-        ]
-    )
-
-def print_trades(trades):
-    def dependentOrders(trade):
-        tp = "-" 
-        if trade.takeProfitOrder is not None:
-            tp = trade.takeProfitOrder.price 
-        sl = "-" 
-        if trade.stopLossOrder is not None:
-            sl = trade.stopLossOrder.price 
-        tsl = "-" 
-        if trade.trailingStopLossOrder is not None:
-            tsl = trade.trailingStopLossOrder.trailingStopValue 
-        return "{}/{}/{}".format(tp, sl, tsl)
-
-    print_collection(
-        "Open Trades",
-        trades,
-        [
-            ("ID", lambda t: t.id),
-            ("Summary", lambda t: t.summary()),
-            ("Unrealized P/L", lambda t: t.unrealizedPL),
-            ("TP/SL/TSL", dependentOrders)
-        ]
-    )
-
-
-def print_positions(positions):
-    def position_side_formatter(side_name):
-        def f(p):
-            side = getattr(p, side_name)
-            if side is None:
-                return ""
-            if side.units == "0":
-                return ""
-            return "{} @ {}".format(side.units, side.averagePrice)
-        return f
-
-    print_collection(
-        "Positions",
-        positions,
-        [
-            ("Instrument", lambda p: p.instrument),
-            ("P/L", lambda p: p.pl),
-            ("Unrealized P/L", lambda p: p.unrealizedPL),
-            ("Long", position_side_formatter("long")),
-            ("Short", position_side_formatter("short")),
-        ]
-    )
-
-
-def print_orders(orders):
-    order_names = {
-        "STOP" : "Stop",
-        "LIMIT" : "Limit",
-        "MARKET" : "Market",
-        "MARKET_IF_TOUCHED" : "Entry",
-        "ONE_CANCELS_ALL" : "One Cancels All",
-        "TAKE_PROFIT" : "Take Profit",
-        "STOP_LOSS" : "Stop Loss",
-        "TRAILING_STOP_LOSS" : "Trailing Stop Loss"
-    }
-
-    print_collection(
-        "{} Pending Orders".format(len(orders)),
-        orders,
-        [
-            ("ID", lambda o: o.id),
-            ("Type", lambda o: order_names.get(o.type, o.type)),
-            ("Summary", lambda o: o.summary()),
-        ]
-    )
 
 
 def print_response_transaction(
@@ -159,6 +106,20 @@ def print_response_transaction(
     title,
     transaction_name
 ):
+    """
+    Print a Transaction from a response object if the Transaction exists and
+    the response has the expected HTTP status code. 
+
+    If the Transaction doesn't exist in the response, this function silently
+    fails and nothing is printed.
+
+    Args:
+        response: The response object to extract the Transaction from
+        expected_status: The status that the response is expected to have
+        title: The title to use for the rendered Transction
+        transaction_name: The name of the Transaction expected
+    """
+
     try:
         print_entity(
             title,

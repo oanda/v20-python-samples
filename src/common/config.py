@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import yaml
 import os
 import sys
@@ -8,11 +6,24 @@ import v20
 from common import input
 
 
+#
+# The default environment variable that points to the location of the v20
+# configuration file
+#
 DEFAULT_ENV = "V20_CONF"
+
+#
+# The default path for the v20 configuration file
+#
 DEFAULT_PATH = "~/.v20.conf"
 
 
 class ConfigPathError(Exception):
+    """
+    Exception that indicates that the path specifed for a v20 config file
+    location doesn't exist
+    """
+
     def __init__(self, path):
         self.path = path
 
@@ -21,6 +32,11 @@ class ConfigPathError(Exception):
 
 
 class ConfigValueError(Exception):
+    """
+    Exception that indicates that the v20 configuration file is missing
+    a required value
+    """
+
     def __init__(self, value):
         self.value = value
 
@@ -29,7 +45,17 @@ class ConfigValueError(Exception):
 
 
 class Config(object):
+    """
+    The Config object encapsulates all of the configuration required to create
+    a v20 API context and configure it to work with a specific Account. 
+
+    Using the Config object enables the scripts to exist without many command
+    line arguments (host, token, accountID, etc)
+    """
     def __init__(self):
+        """
+        Initialize an empty Config object
+        """
         self.hostname = None
         self.streaming_hostname = None
         self.port = 443
@@ -41,6 +67,10 @@ class Config(object):
         self.path = None
 
     def __str__(self):
+        """
+        Create the string (YAML) representaion of the Config instance 
+        """
+
         s = ""
         s += "hostname: {}\n".format(self.hostname)
         s += "streaming_hostname: {}\n".format(self.streaming_hostname)
@@ -51,33 +81,56 @@ class Config(object):
         s += "accounts:\n"
         for a in self.accounts:
             s += "- {}\n".format(a)
-        s += "active_account: {}\n".format(self.active_account)
+        s += "active_account: {}".format(self.active_account)
+
         return s
 
     def dump(self, path):
+        """
+        Dump the YAML representation of the Config instance to a file.
+
+        Args:
+            path: The location to write the config YAML
+        """
+
         path = os.path.expanduser(path)
 
         with open(path, "w") as f:
-            print(str(self), file=f)
+            print >>f, str(self)
 
     def load(self, path):
+        """
+        Load the YAML config representation from a file into the Config instance
+
+        Args:
+            path: The location to read the config YAML from
+        """
+
         self.path = path
 
         try:
             with open(os.path.expanduser(path)) as f:
                 y = yaml.load(f)
                 self.hostname = y.get("hostname", self.hostname)
-                self.streaming_hostname = y.get("streaming_hostname", self.streaming_hostname)
+                self.streaming_hostname = y.get(
+                    "streaming_hostname", self.streaming_hostname
+                )
                 self.port = y.get("port", self.port)
                 self.ssl = y.get("ssl", self.ssl)
                 self.username = y.get("username", self.username)
                 self.token = y.get("token", self.token)
                 self.accounts = y.get("accounts", self.accounts)
-                self.active_account = y.get("active_account", self.active_account)
+                self.active_account = y.get(
+                    "active_account", self.active_account
+                )
         except:
             raise ConfigPathError(path)
 
     def validate(self):
+        """
+        Ensure that the Config instance is valid
+        """
+
         if self.hostname is None:
             raise ConfigValueError("hostname")
         if self.streaming_hostname is None:
@@ -96,6 +149,11 @@ class Config(object):
             raise ConfigValueError("account")
 
     def update_from_input(self):
+        """
+        Populate the configuration instance by interacting with the user using
+        prompts
+        """
+
         environments = [
             "fxtrade",
             "fxpractice"
@@ -130,18 +188,18 @@ class Config(object):
         self.hostname = hostnames[index]
         self.streaming_hostname = streaming_hostnames[index]
 
-        print("> API host selected is: {}".format(self.hostname))
-        print("> Streaming host selected is: {}".format(self.streaming_hostname))
-        print()
+        print "> API host selected is: {}".format(self.hostname)
+        print "> Streaming host selected is: {}".format(self.streaming_hostname)
+        print
 
         self.username = input.get_string("Enter username", self.username)
 
-        print("> username is: {}".format(self.username))
-        print()
+        print "> username is: {}".format(self.username)
+        print
 
         self.token = input.get_string("Enter personal access token", self.token)
 
-        print("> Using personal access token: {}".format(self.token))
+        print "> Using personal access token: {}".format(self.token)
 
         ctx = v20.Context(
             self.hostname,
@@ -161,6 +219,10 @@ class Config(object):
 
         response = ctx.account.list()
 
+        if response.status != 200:
+            print response
+            sys.exit()
+
         self.accounts = [
             account.id for account in response.body.get("accounts")
         ]
@@ -168,7 +230,7 @@ class Config(object):
         self.accounts.sort()
 
         if len(self.accounts) == 0:
-            print("No Accounts available")
+            print "No Accounts available"
             sys.exit()
 
         index = 0
@@ -178,7 +240,7 @@ class Config(object):
         except:
             pass
 
-        print()
+        print
 
         self.active_account = input.get_from_list(
             self.accounts,
@@ -187,10 +249,13 @@ class Config(object):
             index
         )
 
-        print("> Active Account is: {}".format(self.active_account))
-        print()
+        print "> Active Account is: {}".format(self.active_account)
+        print
 
     def create_context(self):
+        """
+        Initialize an API context based on the Config instance
+        """
         ctx = v20.Context(
             self.hostname,
             self.port,
@@ -203,6 +268,9 @@ class Config(object):
         return ctx
 
     def create_streaming_context(self):
+        """
+        Initialize a streaming API context based on the Config instance
+        """
         ctx = v20.Context(
             self.streaming_hostname,
             self.port,
@@ -214,14 +282,32 @@ class Config(object):
         return ctx
 
 
-def make(s):
+def make_config_instance(path):
+    """
+    Create a Config instance, load its state from the provided path and 
+    ensure that it is valid.
+
+    Args:
+        path: The location of the configuration file
+    """
+
     config = Config()
-    config.load(s)
+
+    config.load(path)
+
     config.validate()
+
     return config
 
 
-def path():
+def default_config_path():
+    """
+    Calculate the default configuration file path. 
+
+    The default is first selected to be the contents of the V20_CONF
+    environment variable, followed by the default path ~/.v20.conf
+    """
+
     global DEFAULT_ENV
     global DEFAULT_PATH
 
@@ -229,13 +315,23 @@ def path():
 
 
 def add_argument(parser):
+    """
+    Add the --config argument to an ArgumentParser that enables the creation of
+    a Config instance. The user is required to provide the path to load the
+    configuration from, else the parser falls back to the location specified in
+    the V20_CONF environment variable followed by the default config file
+    location of ~/.v20.conf
+
+    Args:
+        parser: The ArgumentParser to add the config option to
+    """
     global DEFAULT_ENV
     global DEFAULT_PATH
 
     parser.add_argument(
         "--config",
-        type=make,
-        default=path(),
+        type=make_config_instance,
+        default=default_config_path(),
         help="The location of the v20 config file to load. "
              "This defaults to the file set in the ${} "
              "environment variable, followed by file {}".format(
