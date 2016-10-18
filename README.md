@@ -48,3 +48,35 @@ user@host: ~/v20-python-samples$
 ```
 
 
+Configuration
+=============
+
+Format
+------
+
+Generating
+----------
+
+Using
+-----
+
+
+Account Operations
+==================
+
+Details
+-------
+
+Polling for Changes
+-------------------
+
+
+Transaction Operations
+======================
+
+Polling Transactions
+--------------------
+
+Streaming Transactions
+----------------------
+
