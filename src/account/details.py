@@ -40,12 +40,12 @@ def main():
     #
     # Extract the Account representation from the response.
     #
-    account = response.get("account", "200")
+    my_account = response.get("account", "200")
 
     #
     # Print the Account state to stdout
     #
-    account.view.print_account(account)
+    account.view.print_account(my_account)
 
 
 if __name__ == "__main__":
