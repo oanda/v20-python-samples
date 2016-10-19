@@ -39,7 +39,10 @@ def print_positions(positions, open_only=True):
     # unrealized PL long postion summary and shor position summary
     #
     common.view.print_collection(
-        "{} Positions".format(len(filtered_positions)),
+        "{} {}Positions".format(
+            len(filtered_positions),
+            "Open " if open_only else ""
+        ),
         filtered_positions,
         [
             ("Instrument", lambda p: p.instrument),

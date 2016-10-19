@@ -4,10 +4,10 @@ import argparse
 import common.config
 from account import Account
 
+
 def main():
     """
-    Create an API context, and use it to fetch and display the state of an
-    Account.
+    Create an API context, and use it to fetch and display an Account summary.
 
     The configuration for the context and Account to fetch is parsed from the
     config file provided as an argument.
@@ -34,7 +34,7 @@ def main():
     #
     # Fetch the details of the Account found in the config file
     #
-    response = api.account.get(account_id)
+    response = api.account.summary(account_id)
 
     #
     # Extract the Account representation from the response.

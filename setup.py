@@ -8,7 +8,10 @@ setup(
     entry_points={
         'console_scripts': [
             'v20-configure = configure:main',
-            'v20-account-details = account.details:main'
+            'v20-account-details = account.details:main',
+            'v20-account-summary = account.summary:main',
+            'v20-account-instruments = account.instruments:main',
+            'v20-account-changes = account.changes:main',
         ]
     }
 )

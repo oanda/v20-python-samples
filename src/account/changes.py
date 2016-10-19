@@ -6,8 +6,8 @@ from account import Account
 
 def main():
     """
-    Create an API context, and use it to fetch and display the state of an
-    Account.
+    Create an API context, and use it to fetch an Account state and then
+    continually poll for changes to it.
 
     The configuration for the context and Account to fetch is parsed from the
     config file provided as an argument.

@@ -1,45 +1,42 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
-
-import sys
-import os
-import v20
 import common.config
 import common.input
 
-
 def main():
+    """
+    Load an existing v20.conf file, update it interactively, and save it
+    back to a file.
+    """
 
     config = common.config.Config()
 
     filename = common.input.get_string(
-        "Enter v20.conf filename",
-        common.config.path()
+        "Enter existing v20.conf filename to load",
+        common.config.default_config_path()
     )
 
     try:
         config.load(filename)
     except:
-        print(
-            "Config file '{}' doesn't exist, starting with defaults.".
-            format(filename)
+        print "Config file '{}' doesn't exist, starting with defaults.".format(
+            filename
         )
-        print()
+        print
 
-    print("intitial v20 configuration follows:")
-    print("---")
-    print(str(config),)
-    print("---")
-    print()
+    print
+    print "------------ Intitial v20 configuration ------------"
+    print str(config)
+    print "----------------------------------------------------"
+    print
 
     config.update_from_input()
 
-    print("v20 configuration follows:")
-    print("---")
-    print(str(config),)
-    print("---")
-    print()
+    print
+    print "-------------- New v20 configuration --------------"
+    print str(config)
+    print "---------------------------------------------------"
+    print
 
     dump = common.input.get_yn(
         "Dump v20 configuration to {}?".format(filename),
