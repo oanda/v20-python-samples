@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import argparse
 import common.config
-from common.view import print_entity, print_trades
+from common.view import print_trades
 
 
 def main():

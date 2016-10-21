@@ -7,7 +7,7 @@ import argparse
 import v20
 import common.config
 from common.arg_helper import parse_instrument
-from common.view import print_entity, print_response_transaction
+from common.view import print_response_transaction
 
 
 def add_order_request_args(OrderRequestType, parser):

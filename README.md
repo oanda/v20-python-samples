@@ -174,12 +174,25 @@ directly or with the provided entry point alias:
 
 The Account Changes script is defined at `src/account/changes.py`, and is used
 to fetch and display the current Account state, and then poll repeatedly for
-changes to it. It can be executed directly or with the provided entry point
-alias:
+changes to it. This script provides a reference implementation for how OANDA
+recommends that Account state be managed. It can be executed directly or with
+the provided entry point alias:
 
 ```bash
-(env)user@host: ~/v20-python-samples$ python src/account/instruments.py
-(env)user@host: ~/v20-python-samples$ v20-account-instruments
+(env)user@host: ~/v20-python-samples$ python src/account/changes.py
+(env)user@host: ~/v20-python-samples$ v20-account-changes
+```
+
+
+### Account Configuration
+
+The Account Configuration script is defined at `src/account/configure.py`, and
+is used to modify client Account configuration.  It can be executed directly or
+with the provided entry point alias:
+
+```bash
+(env)user@host: ~/v20-python-samples$ python src/account/changes.py
+(env)user@host: ~/v20-python-samples$ v20-account-changes
 ```
 
 

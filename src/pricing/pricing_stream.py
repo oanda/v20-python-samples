@@ -3,8 +3,6 @@
 import argparse
 import common.config
 import os.path
-from common.view import print_entity, print_collection, print_trades
-from common.view import print_positions, print_orders
 
 
 def main():

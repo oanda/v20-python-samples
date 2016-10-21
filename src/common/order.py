@@ -67,12 +67,12 @@ def create_order(OrderRequestType):
     print response
     try:
         orderCreateTransaction = response.get("orderCreateTransaction", 201)
-        print_entity("Order Create", orderCreateTransaction)
+        print_entity(orderCreateTransaction, title="Order Create")
     except:
         pass
          
     try:
         orderFillTransaction = response.get("orderFillTransaction", 201)
-        print_entity("Order Fill", orderFillTransaction)
+        print_entity(orderFillTransaction, title="Order Fill")
     except:
         pass

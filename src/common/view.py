@@ -27,7 +27,7 @@ def print_subtitle(s):
     print
 
 
-def print_entity(title, entity):
+def print_entity(entity, title=None, headers=True):
     """
     Print an entity as a title along with the tabular representation
     of the entity.
@@ -41,7 +41,8 @@ def print_entity(title, entity):
         print_title(title)
 
     headers = ["Name", "Value"]
-    tablefmt = "fancy_grid"
+    headers=[]
+    tablefmt = "rst"
     body = []
 
     for field in entity.fields():
@@ -82,7 +83,7 @@ def print_collection(title, entities, columns):
         print_title(title)
 
     headers = [c[0] for c in columns]
-    tablefmt = "fancy_grid"
+    tablefmt = "rst"
     body = []
 
     for e in entities:
@@ -122,8 +123,8 @@ def print_response_transaction(
 
     try:
         print_entity(
-            title,
-            response.get(transaction_name, expected_status)
+            response.get(transaction_name, expected_status),
+            title=title
         )
         print()
     except:

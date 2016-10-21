@@ -1,6 +1,23 @@
 import common.view
 
-def print_trade_summaries(trades):
+
+def print_trades_map(trades_map):
+    """
+    Print a map of Trade Summaries in table format.
+
+    Args:
+        orders_map: The map of id->Trade to print
+    """
+
+    print_trades(
+        sorted(
+            trades_map.values(),
+            key=lambda t: t.id
+        )
+    )
+
+
+def print_trades(trades):
     """
     Print a collection or Trades in table format.
 
@@ -22,3 +39,5 @@ def print_trade_summaries(trades):
             ("P/L", lambda t: t.realizedPL)
         ]
     )
+
+    print

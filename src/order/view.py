@@ -1,7 +1,23 @@
 import common.view
 
 
-def print_order_summaries(orders):
+def print_orders_map(orders_map):
+    """
+    Print a map of Order Summaries in table format.
+
+    Args:
+        orders_map: The map of id->Order to print
+    """
+
+    print_orders(
+        sorted(
+            orders_map.values(),
+            key=lambda o: o.id
+        )
+    )
+
+
+def print_orders(orders):
     """
     Print a collection or Orders in table format.
 
@@ -36,3 +52,5 @@ def print_order_summaries(orders):
             ("Summary", lambda o: o.summary()),
         ]
     )
+
+    print
