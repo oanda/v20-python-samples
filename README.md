@@ -196,9 +196,18 @@ with the provided entry point alias:
 ```
 
 
-## Transaction Scripts
+## Instrument Scripts
 
-### Polling Transactions
+### Fetch Instrument Candlesticks
+
+The script to fetch instrument candlesticks is defined at
+`src/instrument/candles.py`.  It can be executed directly or with the provided
+entry point alias:
+
+```bash
+(env)user@host: ~/v20-python-samples$ python src/instrument/candles.py
+(env)user@host: ~/v20-python-samples$ v20-instrument-candles
+```
 
 ### Streaming Transactions
 

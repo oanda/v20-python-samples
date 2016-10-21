@@ -4,7 +4,9 @@ import sys
 import select
 import argparse
 import common.config
+from common.view import print_response_transaction
 from account import Account
+
 
 def main():
     """
@@ -24,10 +26,15 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--poll-interval",
-        type=int,
-        default=5,
-        help="The number of seconds between polls for Account changes"
+        "--margin-rate",
+        default=None,
+        help="The new default margin rate for the Account"
+    )
+
+    parser.add_argument(
+        "--alias",
+        default=None,
+        help="The new alias for the Account"
     )
 
     args = parser.parse_args()
@@ -40,62 +47,30 @@ def main():
     #
     api = args.config.create_context()
 
+    kwargs = {}
+
+    if args.alias is not None:
+        kwargs["alias"] = args.alias
+
+    if args.margin_rate is not None:
+        kwargs["marginRate"] = args.margin_rate
+
     #
     # Fetch the details of the Account found in the config file
     #
-    response = api.account.get(account_id)
+    response = api.account.configure(account_id, **kwargs)
 
-    #
-    # Extract the Account representation from the response and use
-    # it to create an Account wrapper
-    #
-    account = Account(
-        response.get("account", "200")
+    if response.status == 200:
+        print "Success"
+        print
+
+    print_response_transaction(
+        response,
+        "200",
+        "Configure Transaction",
+        "configureTransaction"
     )
 
-    def dump():
-        account.dump()
-
-        print "Press <ENTER> to see current state for Account {}".format(
-            account.details.id
-        )
-
-    dump()
-
-    while True:
-        i, o, e = select.select([sys.stdin], [], [], args.poll_interval)
-
-        if i:
-            sys.stdin.readline()
-            dump()
-
-        #
-        # Poll for all changes to the account since the last
-        # Account Transaction ID that was seen
-        #
-        response = api.account.changes(
-            account_id,
-            sinceTransactionID=account.details.lastTransactionID
-        )
-
-        account.apply_changes(
-            response.get(
-                "changes",
-                "200"
-            )
-        )
-
-        account.apply_state(
-            response.get(
-                "state",
-                "200"
-            )
-        )
-
-        account.details.lastTransactionID = response.get(
-            "lastTransactionID",
-            "200"
-        )
 
 if __name__ == "__main__":
     main()

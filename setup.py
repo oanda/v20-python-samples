@@ -12,6 +12,9 @@ setup(
             'v20-account-summary = account.summary:main',
             'v20-account-instruments = account.instruments:main',
             'v20-account-changes = account.changes:main',
+            'v20-account-configure = account.configure:main',
+            'v20-instrument-candles = instrument.candles:main',
+            'v20-instrument-candles-follow = instrument.candles_follow:main',
         ]
     }
 )

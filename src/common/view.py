@@ -94,7 +94,7 @@ def print_collection(title, entities, columns):
         (
             body,
             headers,
-            tablefmt=tablefmt
+            tablefmt=tablefmt,
         ).encode('utf-8')
     )
     print
