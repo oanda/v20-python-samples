@@ -3,34 +3,135 @@
 import argparse
 import common.config
 import common.arg_helper
-from view import CandlePrinter
 from datetime import datetime
 import curses
 import random
 import time
 
 
+class CandlePrinter():
+    def __init__(self, stdscr):
+        self.stdscr = stdscr
+
+        self.stdscr.clear()
+        (h, w) = self.stdscr.getmaxyx()
+        self.height = h
+        self.width = w
+
+        self.field_width = {
+            'time' : 19,
+            'price' : 8,
+            'volume' : 6,
+        }
+
+    def set_instrument(self, instrument):
+        self.instrument = instrument
+
+    def set_granularity(self, granularity):
+        self.granularity = granularity
+
+    def set_candles(self, candles):
+        self.candles = candles
+
+    def update_candles(self, candles):
+        new = candles[0]
+        last = self.candles[-1]
+
+        # Candles haven't changed
+        if new.time == last.time and new.volume == last.time:
+            return
+
+        # Update last candle
+        self.candles[-1] = candles.pop(0)
+
+        # Add the newer candles
+        self.candles.extend(candles)
+
+        # Get rid of the oldest candles
+        self.candles = self.candles[-self.max_candle_count():]
+
+    def max_candle_count(self):
+        return self.height - 3
+
+    def last_candle_time(self):
+        return self.candles[-1].time
+
+    def render(self):
+        title = "{} ({})".format(self.instrument, self.granularity)
+
+        header = (
+            "{:<{width[time]}} {:>{width[price]}} "
+            "{:>{width[price]}} {:>{width[price]}} {:>{width[price]}} "
+            "{:<{width[volume]}}"
+        ).format(
+            "Time",
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            width=self.field_width
+        )
+
+        x = (len(header) - len(title)) / 2
+
+        self.stdscr.addstr(
+            0,
+            x,
+            title,
+            curses.A_BOLD
+        )
+
+        self.stdscr.addstr(2, 0, header, curses.A_UNDERLINE)
+
+        y = 3
+
+        for candle in self.candles:
+            time = str(
+                datetime.strptime(
+                    candle.time,
+                    "%Y-%m-%dT%H:%M:%S.000000000Z"
+                )
+            )
+
+            volume = candle.volume
+
+            for price in ["mid", "bid", "ask"]:
+                c = getattr(candle, price, None)
+
+                if c is None:
+                    continue
+
+                candle_str = (
+                    "{:>{width[time]}} {:>{width[price]}} "
+                    "{:>{width[price]}} {:>{width[price]}} "
+                    "{:>{width[price]}} {:>{width[volume]}}"
+                ).format(
+                    time,
+                    c.o,
+                    c.h,
+                    c.l,
+                    c.c,
+                    volume,
+                    width=self.field_width
+                )
+
+                self.stdscr.addstr(y, 0, candle_str)
+
+                y += 1
+
+                break
+
+        self.stdscr.move(0, 0)
+
+        self.stdscr.refresh()
+
+
+
 def main():
-    
-    stdscr = curses.initscr()
+    curses.wrapper(run)
 
-    try:
-        (h, w) = stdscr.getmaxyx()
-
-        while True:
-            x = int(random.random() * w)
-            y = int(random.random() * h)
-            stdscr.move(y, x)
-            stdscr.addch("*")
-            stdscr.refresh()
-            time.sleep(0.05)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        curses.endwin()
-
-    return
-
+def run(stdscr):
     """
     Create an API context, and use it to fetch candles for an instrument.
 
@@ -50,61 +151,14 @@ def main():
         "--instrument",
         type=common.arg_helper.instrument,
         default=None,
+        required=True,
         help="The instrument to get candles for"
     )
-
-    parser.add_argument(
-        "--mid", 
-        action='store_true',
-        help="Get midpoint-based candles"
-    )
-
-    parser.add_argument(
-        "--bid", 
-        action='store_true',
-        help="Get bid-based candles"
-    )
-
-    parser.add_argument(
-        "--ask", 
-        action='store_true',
-        help="Get ask-based candles"
-    )
-
-    parser.add_argument(
-        "--smooth", 
-        action='store_true',
-        help="'Smooth' the candles"
-    )
-
-    parser.set_defaults(mid=False, bid=False, ask=False)
 
     parser.add_argument(
         "--granularity",
         default=None,
         help="The candles granularity to fetch"
-    )
-
-    parser.add_argument(
-        "--count",
-        default=None,
-        help="The number of candles to fetch"
-    )
-
-    date_format = "%Y-%m-%d %H:%M:%S"
-
-    parser.add_argument(
-        "--from-time",
-        default=None,
-        type=common.arg_helper.date_time(),
-        help="The start date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
-    )
-
-    parser.add_argument(
-        "--to-time",
-        default=None,
-        type=common.arg_helper.date_time(),
-        help="The end date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
     )
 
     args = parser.parse_args()
@@ -122,35 +176,17 @@ def main():
     if args.granularity is not None:
         kwargs["granularity"] = args.granularity
 
-    if args.smooth is not None:
-        kwargs["smooth"] = args.smooth
-
-    if args.count is not None:
-        kwargs["count"] = args.count
-
-    if args.from_time is not None:
-        kwargs["fromTime"] = args.from_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
-
-    if args.to_time is not None:
-        kwargs["toTime"] = args.to_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
-
-    price = "mid"
-
-    if args.mid:
-        kwargs["price"] = "M" + kwargs.get("price", "")
-        price = "mid"
-
-    if args.bid:
-        kwargs["price"] = "B" + kwargs.get("price", "")
-        price = "bid"
-
-    if args.ask:
-        kwargs["price"] = "A" + kwargs.get("price", "")
-        price = "ask"
-
     #
     # Fetch the candles
     #
+    printer = CandlePrinter(stdscr) 
+
+    #
+    # The printer decides how many candles can be displayed based on the size
+    # of the terminal
+    #
+    kwargs["count"] = printer.max_candle_count()
+
     response = api.instrument.candles(args.instrument, **kwargs)
 
     if response.status != 200:
@@ -158,18 +194,38 @@ def main():
         print response.body
         return
 
-    print "Instrument: {}".format(response.get("instrument", 200))
-    print "Granularity: {}".format(response.get("granularity", 200))
+    #
+    # Get the initial batch of candlesticks to display
+    #
+    instrument = response.get("instrument", 200)
 
-    printer = CandlePrinter()
+    granularity = response.get("granularity", 200)
 
-    printer.print_header()
+    printer.set_instrument(instrument)
 
-    candles = response.get("candles", 200)
+    printer.set_granularity(granularity)
 
-    for candle in response.get("candles", 200):
-        printer.print_candle(candle)
+    printer.set_candles(
+        response.get("candles", 200)
+    )
 
+    printer.render()
+
+    while True:
+        time.sleep(1)
+
+        kwargs = {
+            'granularity': granularity, 
+            'fromTime': printer.last_candle_time()
+        }
+
+        response = api.instrument.candles(args.instrument, **kwargs)
+
+        candles = response.get("candles", 200)
+
+        printer.update_candles(candles)
+
+        printer.render()
 
 if __name__ == "__main__":
     main()
