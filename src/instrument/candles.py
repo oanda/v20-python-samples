@@ -26,7 +26,7 @@ def main():
     parser.add_argument(
         "--instrument",
         type=common.arg_helper.instrument,
-        default=None,
+        required=True,
         help="The instrument to get candles for"
     )
 

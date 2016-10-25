@@ -14,7 +14,7 @@ setup(
             'v20-account-changes = account.changes:main',
             'v20-account-configure = account.configure:main',
             'v20-instrument-candles = instrument.candles:main',
-            'v20-instrument-candles-follow = instrument.candles_follow:main',
+            'v20-instrument-candles-poll = instrument.candles_poll:main',
         ]
     }
 )

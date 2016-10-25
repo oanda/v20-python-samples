@@ -39,7 +39,7 @@ class CandlePrinter():
 
         # Candles haven't changed
         if new.time == last.time and new.volume == last.time:
-            return
+            return False
 
         # Update last candle
         self.candles[-1] = candles.pop(0)
@@ -49,6 +49,8 @@ class CandlePrinter():
 
         # Get rid of the oldest candles
         self.candles = self.candles[-self.max_candle_count():]
+
+        return True
 
     def max_candle_count(self):
         return self.height - 3
@@ -223,9 +225,8 @@ def run(stdscr):
 
         candles = response.get("candles", 200)
 
-        printer.update_candles(candles)
-
-        printer.render()
+        if printer.update_candles(candles):
+            printer.render()
 
 if __name__ == "__main__":
     main()
