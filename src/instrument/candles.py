@@ -2,7 +2,7 @@
 
 import argparse
 import common.config
-import common.arg_helper
+import common.args
 from view import CandlePrinter
 from datetime import datetime
 
@@ -25,7 +25,7 @@ def main():
 
     parser.add_argument(
         "--instrument",
-        type=common.arg_helper.instrument,
+        type=common.args.instrument,
         required=True,
         help="The instrument to get candles for"
     )
@@ -73,14 +73,14 @@ def main():
     parser.add_argument(
         "--from-time",
         default=None,
-        type=common.arg_helper.date_time(),
+        type=common.args.date_time(),
         help="The start date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
     )
 
     parser.add_argument(
         "--to-time",
         default=None,
-        type=common.arg_helper.date_time(),
+        type=common.args.date_time(),
         help="The end date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
     )
 

@@ -2,13 +2,16 @@
 
 import argparse
 import common.config
-import common.arg_helper
 from args import OrderArguments
 from v20.order import MarketOrderRequest
-from common.view import print_response_transaction
+from view import print_order_create_response_transactions
 
 
 def main():
+    """
+    Create a Market Order in an Account based on the provided command-line
+    arguments.
+    """
 
     parser = argparse.ArgumentParser()
 
@@ -20,65 +23,44 @@ def main():
     #
     # Add the command line arguments required for a Market Order
     #
-    orderArgs = OrderArguments(parser)
-    orderArgs.add_instrument()
-    orderArgs.add_units()
-    orderArgs.add_time_in_force(["FOK", "IOC"])
-    orderArgs.add_price_bound()
-    orderArgs.add_position_fill()
-    orderArgs.add_take_profit_on_fill()
-    orderArgs.add_stop_loss_on_fill()
-    orderArgs.add_trailing_stop_loss_on_fill()
-    orderArgs.add_client_order_extensions()
-    orderArgs.add_client_trade_extensions()
+    marketOrderArgs = OrderArguments(parser)
+    marketOrderArgs.add_instrument()
+    marketOrderArgs.add_units()
+    marketOrderArgs.add_time_in_force(["FOK", "IOC"])
+    marketOrderArgs.add_price_bound()
+    marketOrderArgs.add_position_fill()
+    marketOrderArgs.add_take_profit_on_fill()
+    marketOrderArgs.add_stop_loss_on_fill()
+    marketOrderArgs.add_trailing_stop_loss_on_fill()
+    marketOrderArgs.add_client_order_extensions()
+    marketOrderArgs.add_client_trade_extensions()
 
     args = parser.parse_args()
 
     #
-    # Extract the Market order parameters from the parsed arguments
+    # Create the api context based on the contents of the
+    # v20 config file
     #
-    orderArgs.parse_arguments(args)
-
-    account_id = args.config.active_account
-
     api = args.config.create_context()
 
     #
-    # Create a MarketOrderRequest from the parsed arguments
+    # Extract the Market order parameters from the parsed arguments
     #
-    order_request = MarketOrderRequest(**orderArgs.order_request)
+    marketOrderArgs.parse_arguments(args)
 
     #
     # Submit the request to create the Market Order
     #
-    response = api.order.create(account_id, order=order_request)
+    response = api.order.market(
+        args.config.active_account,
+        **marketOrderArgs.order_request
+    )
 
     if response.status / 100 != 2:
         print "Error {}: {}".format (response.status, response.body)
         return
-
-    #
-    # Print out the resulting transactions if they exist in the response
-    #
-    print_response_transaction(
-        response, 201, "Order Create", "orderCreateTransaction"
-    )
-
-    print_response_transaction(
-        response, 201, "Order Fill", "orderFillTransaction"
-    )
-
-    print_response_transaction(
-        response, 201, "Order Cancel", "orderCancelTransaction"
-    )
-
-    print_response_transaction(
-        response, 201, "Order Reissue", "orderReissueTransaction"
-    )
-
-    print_response_transaction(
-        response, 400, "Order Reject", "orderRejectTransaction"
-    )
+    
+    print_order_create_response_transactions(response)
 
 
 if __name__ == "__main__":

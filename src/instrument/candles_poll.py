@@ -2,7 +2,7 @@
 
 import argparse
 import common.config
-import common.arg_helper
+import common.args
 from datetime import datetime
 import curses
 import random
@@ -150,7 +150,7 @@ def run(stdscr):
 
     parser.add_argument(
         "--instrument",
-        type=common.arg_helper.instrument,
+        type=common.args.instrument,
         default=None,
         required=True,
         help="The instrument to get candles for"

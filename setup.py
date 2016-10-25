@@ -17,6 +17,9 @@ setup(
             'v20-instrument-candles-poll = instrument.candles_poll:main',
             'v20-order-list-pending = order.list_pending:main',
             'v20-order-market = order.market:main',
+            'v20-order-entry = order.entry:main',
+            'v20-order-limit = order.limit:main',
+            'v20-order-stop = order.stop:main',
         ]
     }
 )

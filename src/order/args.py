@@ -1,28 +1,44 @@
 from datetime import datetime
 import argparse
-import common.arg_helper
+import common.args
 import v20.transaction
 
 
 class OrderArguments(object):
+    """
+    OrderArguments is a wrapper that manages adding command line parameters 
+    used to configure Order creation
+    """
+
     def __init__(self, parser):
+        # Store the argument parser to add arguments to
         self.parser = parser
+
+        # The order_request contains all of the parameters parsed for order
+        # creation
         self.order_request = {}
-        self.params_parsers = []
+
+        # The list of param_parsers are used to automatically interpret
+        # order arguments that have been added
+        self.param_parsers = []
 
     def parse_arguments(self, args):
-        for parser in self.params_parsers:
+        """
+        Call each param parser with the parsed arguments to extract the value
+        into the order_request
+        """
+        for parser in self.param_parsers:
             parser(args)
 
     def add_instrument(self):
         self.parser.add_argument(
             "--instrument",
-            type=common.arg_helper.instrument,
+            type=common.args.instrument,
             required=True,
             help="The instrument to place the Order for"
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_instrument(args)
         )
 
@@ -36,13 +52,14 @@ class OrderArguments(object):
     def add_units(self):
         self.parser.add_argument(
             "--units",
+            required=True,
             help=(
                 "The number of units for the Order. "
                 "Negative values indicate sell, Positive values indicate buy"
             )
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_units(args)
         )
 
@@ -52,6 +69,25 @@ class OrderArguments(object):
             return
 
         self.order_request["units"] = args.units
+
+
+    def add_price(self):
+        self.parser.add_argument(
+            "--price",
+            required=True,
+            help="The price threshold for the Order"
+        )
+
+        self.param_parsers.append(
+            lambda args: self.parse_price(args)
+        )
+
+
+    def parse_price(self, args):
+        if args.price is None:
+            return
+
+        self.order_request["price"] = args.price
 
 
     def add_time_in_force(self, choices=["FOK", "IOC", "GTC", "GFD", "GTD"]):
@@ -64,14 +100,14 @@ class OrderArguments(object):
         if "GTD" in choices:
             self.parser.add_argument(
                 "--gtd-time",
-                type=date_time(),
+                type=common.args.date_time(),
                 help=(
                     "The date to use when the time-in-force is GTD. "
                     "Format is 'YYYY-MM-DD HH:MM:SS"
                 )
             )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_time_in_force(args)
         )
 
@@ -92,7 +128,8 @@ class OrderArguments(object):
             )
             return
             
-        self.order_request["gtdTime"] = args.gtd_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
+        self.order_request["gtdTime"] = \
+            args.gtd_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
         
 
     def add_price_bound(self):
@@ -101,7 +138,7 @@ class OrderArguments(object):
             help="The worst price bound allowed for the Order"
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_price_bound(args)
         )
         
@@ -121,7 +158,7 @@ class OrderArguments(object):
             help="Specification of how the Order may affect open positions."
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_position_fill(args)
         )
 
@@ -149,7 +186,7 @@ class OrderArguments(object):
             help="The client-provided comment to assign to the Order"
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_client_order_extensions(args)
         )
 
@@ -171,9 +208,10 @@ class OrderArguments(object):
         if args.client_order_comment is not None:
             kwargs["comment"] = args.client_order_comment
 
-        self.order_request["clientExtensions"] = v20.transaction.ClientExtensions(
-            **kwargs
-        )
+        self.order_request["clientExtensions"] = \
+            v20.transaction.ClientExtensions(
+                **kwargs
+            )
 
 
     def add_client_trade_extensions(self):
@@ -184,15 +222,21 @@ class OrderArguments(object):
 
         self.parser.add_argument(
             "--client-trade-tag",
-            help="The client-provided tag to assign to a Trade opened by the Order"
+            help=(
+                "The client-provided tag to assign to a Trade opened by the "
+                "Order"
+            )
         )
 
         self.parser.add_argument(
             "--client-trade-comment",
-            help="The client-provided comment to assign to a Trade opened by the Order"
+            help=(
+                "The client-provided comment to assign to a Trade opened by "
+                "the Order"
+            )
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_client_trade_extensions(args)
         )
 
@@ -214,9 +258,10 @@ class OrderArguments(object):
         if args.client_trade_comment is not None:
             kwargs["comment"] = args.client_trade_comment
 
-        self.order_request["tradeClientExtensions"] = v20.transaction.ClientExtensions(
-            **kwargs
-        )
+        self.order_request["tradeClientExtensions"] = \
+            v20.transaction.ClientExtensions(
+                **kwargs
+            )
 
 
     def add_take_profit_on_fill(self):
@@ -228,7 +273,7 @@ class OrderArguments(object):
             )
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_take_profit_on_fill(args)
         )
 
@@ -254,7 +299,7 @@ class OrderArguments(object):
             )
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_stop_loss_on_fill(args)
         )
 
@@ -275,12 +320,12 @@ class OrderArguments(object):
         self.parser.add_argument(
             "--trailing-stop-loss-distance",
             help=(
-                "The price distance for the Trailing Stop Loss to add to a Trade "
-                "opened by this Order"
+                "The price distance for the Trailing Stop Loss to add to a "
+                "Trade opened by this Order"
             )
         )
 
-        self.params_parsers.append(
+        self.param_parsers.append(
             lambda args: self.parse_trailing_stop_loss_on_fill(args)
         )
 
@@ -293,6 +338,7 @@ class OrderArguments(object):
 
         kwargs["distance"] = args.stop_loss_distance
 
-        self.order_request["trailingStopLossOnFill"] = v20.transaction.TrailingStopLossDetails(
-            **kwargs
-        )
+        self.order_request["trailingStopLossOnFill"] = \
+            v20.transaction.TrailingStopLossDetails(
+                **kwargs
+            )
