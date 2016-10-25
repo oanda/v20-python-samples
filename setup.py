@@ -20,6 +20,9 @@ setup(
             'v20-order-entry = order.entry:main',
             'v20-order-limit = order.limit:main',
             'v20-order-stop = order.stop:main',
+            'v20-order-take-profit = order.take_profit:main',
+            'v20-order-stop-loss = order.stop_loss:main',
+            'v20-order-trailing-stop-loss = order.trailing_stop_loss:main',
         ]
     }
 )

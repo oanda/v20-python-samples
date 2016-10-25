@@ -30,6 +30,39 @@ class OrderArguments(object):
         for parser in self.param_parsers:
             parser(args)
 
+
+    def add_trade_id(self):
+        self.parser.add_argument(
+            "--trade-id",
+            required=True,
+            help=(
+                "The ID of the Trade to create an Order for. If prepended "
+                "with an '@', this will be interpreted as a client Trade ID"
+            )
+        )
+
+        self.param_parsers.append(
+            lambda args: self.parse_trade_id(args)
+        )
+
+
+    def parse_trade_id(self, args):
+        if args.trade_id is None:
+            return
+
+        if args.trade.id[0] == '@':
+            self.order_request["clientTradeID"] = args.trade_id[1:]
+        else:
+            self.order_request["tradeID"] = args.trade_id
+
+
+    def parse_trade_id(self, args):
+        if args.trade_id is None:
+            return
+
+        self.order_request["tradeID"] = args.trade_id
+
+
     def add_instrument(self):
         self.parser.add_argument(
             "--instrument",
@@ -41,6 +74,7 @@ class OrderArguments(object):
         self.param_parsers.append(
             lambda args: self.parse_instrument(args)
         )
+
 
     def parse_instrument(self, args):
         if args.instrument is None:
@@ -88,6 +122,25 @@ class OrderArguments(object):
             return
 
         self.order_request["price"] = args.price
+
+
+    def add_distance(self):
+        self.parser.add_argument(
+            "--distance",
+            required=True,
+            help="The price distance for the Order"
+        )
+
+        self.param_parsers.append(
+            lambda args: self.parse_distance(args)
+        )
+
+
+    def parse_distance(self, args):
+        if args.distance is None:
+            return
+
+        self.order_request["distance"] = args.distance
 
 
     def add_time_in_force(self, choices=["FOK", "IOC", "GTC", "GFD", "GTD"]):

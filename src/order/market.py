@@ -56,10 +56,9 @@ def main():
         **marketOrderArgs.order_request
     )
 
-    if response.status / 100 != 2:
-        print "Error {}: {}".format (response.status, response.body)
-        return
-    
+    print "Response: {} ({})".format(response.status, response.reason)
+    print
+
     print_order_create_response_transactions(response)
 
 

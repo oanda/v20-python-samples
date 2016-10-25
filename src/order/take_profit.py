@@ -4,6 +4,7 @@ import argparse
 import common.config
 from args import OrderArguments
 from view import print_order_create_response_transactions
+from v20.order import TakeProfitOrderRequest
 
 
 def main():
@@ -22,17 +23,11 @@ def main():
     #
     # Add the command line arguments required for a Limit Order
     #
-    limitOrderArgs = OrderArguments(parser)
-    limitOrderArgs.add_instrument()
-    limitOrderArgs.add_units()
-    limitOrderArgs.add_price()
-    limitOrderArgs.add_time_in_force()
-    limitOrderArgs.add_position_fill()
-    limitOrderArgs.add_take_profit_on_fill()
-    limitOrderArgs.add_stop_loss_on_fill()
-    limitOrderArgs.add_trailing_stop_loss_on_fill()
-    limitOrderArgs.add_client_order_extensions()
-    limitOrderArgs.add_client_trade_extensions()
+    tpOrderArgs = OrderArguments(parser)
+    tpOrderArgs.add_trade_id()
+    tpOrderArgs.add_price()
+    tpOrderArgs.add_time_in_force(["GTD", "GFD", "GTC"])
+    tpOrderArgs.add_client_order_extensions()
 
     args = parser.parse_args()
 
@@ -45,14 +40,14 @@ def main():
     #
     # Extract the Limit Order parameters from the parsed arguments
     #
-    limitOrderArgs.parse_arguments(args)
+    tpOrderArgs.parse_arguments(args)
 
     #
     # Submit the request to create the Limit Order
     #
-    response = api.order.limit(
+    response = api.order.create(
         args.config.active_account,
-        **limitOrderArgs.order_request
+        order=TakeProfitOrderRequest(**tpOrderArgs.order_request)
     )
 
     print "Response: {} ({})".format(response.status, response.reason)

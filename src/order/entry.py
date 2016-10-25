@@ -27,7 +27,7 @@ def main():
     entryOrderArgs.add_units()
     entryOrderArgs.add_price()
     entryOrderArgs.add_price_bound()
-    entryOrderArgs.add_time_in_force()
+    entryOrderArgs.add_time_in_force(["GTD", "GFD", "GTC"])
     entryOrderArgs.add_position_fill()
     entryOrderArgs.add_take_profit_on_fill()
     entryOrderArgs.add_stop_loss_on_fill()
@@ -56,10 +56,9 @@ def main():
         **entryOrderArgs.order_request
     )
 
-    if response.status / 100 != 2:
-        print "Error {}: {}".format (response.status, response.body)
-        return
-    
+    print "Response: {} ({})".format(response.status, response.reason)
+    print
+
     print_order_create_response_transactions(response)
 
 
