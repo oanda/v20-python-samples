@@ -15,7 +15,7 @@ setup(
             'v20-account-configure = account.configure:main',
             'v20-instrument-candles = instrument.candles:main',
             'v20-instrument-candles-poll = instrument.candles_poll:main',
-            'v20-order-list = order.list:main',
+            'v20-order-list-pending = order.list_pending:main',
             'v20-order-market = order.market:main',
         ]
     }

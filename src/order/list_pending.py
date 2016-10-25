@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
-
 import argparse
 import common.config
 from view import print_orders
@@ -42,7 +40,12 @@ def main():
 
     orders = sorted(orders, key=lambda o: int(o.id))
 
-    print_orders(orders)
+    if args.summary:
+        print_orders(orders)
+    else:
+        for order in orders:
+            print order
+        
 
 if __name__ == "__main__":
     main()
