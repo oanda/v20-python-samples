@@ -126,6 +126,6 @@ def print_response_transaction(
             response.get(transaction_name, expected_status),
             title=title
         )
-        print()
+        print
     except:
         pass

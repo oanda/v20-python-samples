@@ -129,7 +129,6 @@ class CandlePrinter():
         self.stdscr.refresh()
 
 
-
 def main():
     curses.wrapper(run)
 
@@ -212,7 +211,11 @@ def run(stdscr):
     )
 
     printer.render()
-
+        
+    #
+    # Poll for candles updates every second and redraw
+    # the results
+    #
     while True:
         time.sleep(1)
 
