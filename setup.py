@@ -26,6 +26,9 @@ setup(
             'v20-order-take-profit = order.take_profit:main',
             'v20-order-stop-loss = order.stop_loss:main',
             'v20-order-trailing-stop-loss = order.trailing_stop_loss:main',
+            'v20-pricing-get = pricing.get:main',
+            'v20-pricing-poll = pricing.poll:main',
+            'v20-pricing-stream = pricing.stream:main',
         ]
     }
 )

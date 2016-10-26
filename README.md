@@ -134,22 +134,24 @@ in the READMEs provided in each src directory.
 
 | Source File | Entry Point | Description |
 | ----------- | ----------- | ----------- |
-| src/configure.py | v20-configure | Create/update a v20.conf file |
-| src/account/details.py | v20-account-details | Get the details of the current active Account |
-| src/account/summary.py | v20-account-summary | Get the summary of the current active Account |
-| src/account/instruments.py | v20-account-instruments | Get the list of tradeable instruments for the current active Account |
-| src/account/changes.py | v20-account-changes | Follow changes to the current active Account |
-| src/account/configure.py | v20-account-configure | Set configuration in the current active Account |
-| src/instrument/candles.py | v20-instrument-candles | Fetch candles for an instrument |
-| src/instrument/candles_poll.py | v20-instrument-candles-poll | Fetch and poll for candle updates for an instrument |
-| src/order/get.py | v20-order-get | Get the details of an order in the current active Account |
-| src/order/list_pending.py | v20-order-list-pending | List all pending Orders for the current active Account |
-| src/order/cancel.py | v20-order-cancel | Cancel a pending Order in the current active Account |
-| src/order/set_client_extensions.py | v20-order-set-client-extensions | Set the client extensions for a pending Order in the current active Account |
-| src/order/market.py | v20-order-market | Create a Market Order in the current active Account |
-| src/order/entry.py | v20-order-entry | Create or replace an Entry Order in the current active Account |
-| src/order/limit.py | v20-order-limit | Create or replace a Limit Order in the current active Account |
-| src/order/stop.py | v20-order-stop | Create or replace a Stop Order in the current active Account |
-| src/order/take-profit.py | v20-order-take-profit | Create or replace a Take Profit Order in the current active Account |
-| src/order/stop-loss.py | v20-order-stop-loss | Create or replace a Stop Loss Order in the current active Account |
-| src/order/trailing-stop-loss.py | v20-order-trailing-stop-loss | Create or replace a Trailing Stop Loss Order in the current active Account |
+| `src/configure.py` | v20-configure | Create/update a v20.conf file |
+| `src/account/details.py` | v20-account-details | Get the details of the current active Account |
+| `src/account/summary.py` | v20-account-summary | Get the summary of the current active Account |
+| `src/account/instruments.py` | v20-account-instruments | Get the list of tradeable instruments for the current active Account |
+| `src/account/changes.py` | v20-account-changes | Follow changes to the current active Account |
+| `src/account/configure.py` | v20-account-configure | Set configuration in the current active Account |
+| `src/instrument/candles.py` | v20-instrument-candles | Fetch candles for an instrument |
+| `src/instrument/candles_poll.py` | v20-instrument-candles-poll | Fetch and poll for candle updates for an instrument |
+| `src/order/get.py` | v20-order-get | Get the details of an order in the current active Account |
+| `src/order/list_pending.py` | v20-order-list-pending | List all pending Orders for the current active Account |
+| `src/order/cancel.py` | v20-order-cancel | Cancel a pending Order in the current active Account |
+| `src/order/set_client_extensions.py` | v20-order-set-client-extensions | Set the client extensions for a pending Order in the current active Account |
+| `src/order/market.py` | v20-order-market | Create a Market Order in the current active Account |
+| `src/order/entry.py` | v20-order-entry | Create or replace an Entry Order in the current active Account |
+| `src/order/limit.py` | v20-order-limit | Create or replace a Limit Order in the current active Account |
+| `src/order/stop.py` | v20-order-stop | Create or replace a Stop Order in the current active Account |
+| `src/order/take-profit.py` | v20-order-take-profit | Create or replace a Take Profit Order in the current active Account |
+| `src/order/stop-loss.py` | v20-order-stop-loss | Create or replace a Stop Loss Order in the current active Account |
+| `src/order/trailing-stop-loss.py` | v20-order-trailing-stop-loss | Create or replace a Trailing Stop Loss Order in the current active Account |
+| `src/pricing/get.py` | v20-pricing-get | Fetch/poll the current Prices for a list of Instruments |
+| `src/pricing/stream.py` | v20-pricing-stream | Stream Prices for a list of Instruments |
