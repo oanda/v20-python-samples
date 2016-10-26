@@ -23,6 +23,13 @@ def main():
         help="Instrument to get prices for"
     )
 
+    parser.add_argument(
+        '--show-heartbeats',
+        action='store_true',
+        default=False,
+        help="display heartbeats"
+    )
+
     args = parser.parse_args()
 
     account_id = args.config.active_account
@@ -42,10 +49,10 @@ def main():
     # Print out each price as it is received
     #
     for msg_type, msg in response.parts():
-        if msg.type == "HEARTBEAT":
-            continue
-        
-        print view.price_to_string(msg)
+        if msg.type == "HEARTBEAT" and args.show_heartbeats:
+            print view.heartbeat_to_string(msg)
+        elif msg.type == "PRICE":
+           print view.price_to_string(msg)  
 
 if __name__ == "__main__":
     main()
