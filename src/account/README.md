@@ -56,10 +56,10 @@ entry point alias:
 ## Account Configuration
 
 The Account Configuration script is implemented in `configure.py`, and is used
-to modify client Account configuration.  It can be executed directly or with
-the provided entry point alias:
+to modify client Account configuration (alias or default margin rate).  It can
+be executed directly or with the provided entry point alias:
 
 ```bash
-(env)user@host: ~/v20-python-samples$ python src/account/changes.py
-(env)user@host: ~/v20-python-samples$ v20-account-changes
+(env)user@host: ~/v20-python-samples$ python src/account/configuration.py
+(env)user@host: ~/v20-python-samples$ v20-account-configuration
 ```
