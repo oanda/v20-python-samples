@@ -15,7 +15,10 @@ setup(
             'v20-account-configure = account.configure:main',
             'v20-instrument-candles = instrument.candles:main',
             'v20-instrument-candles-poll = instrument.candles_poll:main',
+            'v20-order-get = order.get:main',
             'v20-order-list-pending = order.list_pending:main',
+            'v20-order-cancel = order.cancel:main',
+            'v20-order-set-client-extensions = order.set_client_extensions:main',
             'v20-order-market = order.market:main',
             'v20-order-entry = order.entry:main',
             'v20-order-limit = order.limit:main',
@@ -23,9 +26,6 @@ setup(
             'v20-order-take-profit = order.take_profit:main',
             'v20-order-stop-loss = order.stop_loss:main',
             'v20-order-trailing-stop-loss = order.trailing_stop_loss:main',
-            'v20-order-cancel = order.cancel:main',
-            'v20-order-get = order.get:main',
-            'v20-order-set-client-extensions = order.set_client_extensions:main',
         ]
     }
 )

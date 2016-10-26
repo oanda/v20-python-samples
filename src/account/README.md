@@ -16,7 +16,7 @@ point alias:
 (env)user@host: ~/v20-python-samples$ v20-account-summary
 ```
 
-### Account Details
+## Account Details
 
 The Account Details script is implemented in `details.py`, and is used to fetch
 and display the full details (including open Trades, open Positions and pending
@@ -28,7 +28,7 @@ executed directly or with the provided entry point alias:
 (env)user@host: ~/v20-python-samples$ v20-account-details
 ```
 
-### Account Instruments
+## Account Instruments
 
 The Account Instruments script is implemented in `instruments.py`, and is used
 to fetch and display the list of tradeable instruments for the `active_account`
@@ -40,8 +40,7 @@ provided entry point alias:
 (env)user@host: ~/v20-python-samples$ v20-account-instruments
 ```
 
-
-### Polling for Account Changes
+## Polling for Account Changes
 
 The Account Changes script is implemented in `changes.py`, and is used to fetch
 and display the current Account state, and then poll repeatedly for changes to
@@ -54,8 +53,7 @@ entry point alias:
 (env)user@host: ~/v20-python-samples$ v20-account-changes
 ```
 
-
-### Account Configuration
+## Account Configuration
 
 The Account Configuration script is implemented in `configure.py`, and is used
 to modify client Account configuration.  It can be executed directly or with

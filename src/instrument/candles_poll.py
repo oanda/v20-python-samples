@@ -129,10 +129,8 @@ class CandlePrinter():
         self.stdscr.refresh()
 
 
-def main():
-    curses.wrapper(run)
 
-def run(stdscr):
+def main():
     """
     Create an API context, and use it to fetch candles for an instrument.
 
@@ -172,64 +170,67 @@ def run(stdscr):
     #
     api = args.config.create_context()
 
-    kwargs = {}
+    def poll_candles(stdscr):
+        kwargs = {}
 
-    if args.granularity is not None:
-        kwargs["granularity"] = args.granularity
+        if args.granularity is not None:
+            kwargs["granularity"] = args.granularity
 
-    #
-    # Fetch the candles
-    #
-    printer = CandlePrinter(stdscr) 
+        #
+        # Fetch the candles
+        #
+        printer = CandlePrinter(stdscr) 
 
-    #
-    # The printer decides how many candles can be displayed based on the size
-    # of the terminal
-    #
-    kwargs["count"] = printer.max_candle_count()
-
-    response = api.instrument.candles(args.instrument, **kwargs)
-
-    if response.status != 200:
-        print response
-        print response.body
-        return
-
-    #
-    # Get the initial batch of candlesticks to display
-    #
-    instrument = response.get("instrument", 200)
-
-    granularity = response.get("granularity", 200)
-
-    printer.set_instrument(instrument)
-
-    printer.set_granularity(granularity)
-
-    printer.set_candles(
-        response.get("candles", 200)
-    )
-
-    printer.render()
-        
-    #
-    # Poll for candles updates every second and redraw
-    # the results
-    #
-    while True:
-        time.sleep(1)
-
-        kwargs = {
-            'granularity': granularity, 
-            'fromTime': printer.last_candle_time()
-        }
+        #
+        # The printer decides how many candles can be displayed based on the size
+        # of the terminal
+        #
+        kwargs["count"] = printer.max_candle_count()
 
         response = api.instrument.candles(args.instrument, **kwargs)
 
-        candles = response.get("candles", 200)
+        if response.status != 200:
+            print response
+            print response.body
+            return
 
-        if printer.update_candles(candles):
-            printer.render()
+        #
+        # Get the initial batch of candlesticks to display
+        #
+        instrument = response.get("instrument", 200)
+
+        granularity = response.get("granularity", 200)
+
+        printer.set_instrument(instrument)
+
+        printer.set_granularity(granularity)
+
+        printer.set_candles(
+            response.get("candles", 200)
+        )
+
+        printer.render()
+            
+        #
+        # Poll for candles updates every second and redraw
+        # the results
+        #
+        while True:
+            time.sleep(1)
+
+            kwargs = {
+                'granularity': granularity, 
+                'fromTime': printer.last_candle_time()
+            }
+
+            response = api.instrument.candles(args.instrument, **kwargs)
+
+            candles = response.get("candles", 200)
+
+            if printer.update_candles(candles):
+                printer.render()
+
+    curses.wrapper(poll_candles)
 
 if __name__ == "__main__":
     main()

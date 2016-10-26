@@ -127,106 +127,29 @@ v20 configuration file is. If a configuration file exists in this location, no
 ```
 
 
-## Account Scripts
+## Sample Code
 
-The Account scripts are sample programs that interact with the v20 REST API
-Account endpoints described at
-http://developer.oanda.com/rest-live-v20/account-ep/. 
+Following is a listing of the sample code provided. More details can be found
+in the READMEs provided in each src directory.
 
-### Account Summary
-
-The Account Summary script is defined at `src/account/summary.py`, and is used
-to fetch and display the summary of the `active_account` found in the v20
-configuration file. It can be executed directly or with the provided entry
-point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/account/summary.py
-(env)user@host: ~/v20-python-samples$ v20-account-summary
-```
-
-### Account Details
-
-The Account Details script is defined at `src/account/details.py`, and is used
-to fetch and display the full details (including open Trades, open Positions
-and pending Orders) of the `active_account` found in the v20 configuration
-file. It can be executed directly or with the provided entry point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/account/details.py
-(env)user@host: ~/v20-python-samples$ v20-account-details
-```
-
-### Account Instruments
-
-The Account Instruments script is defined at `src/account/instruments.py`, and
-is used to fetch and display the list of tradeable instruments for the
-`active_account` found in the v20 configuration file. It can be executed
-directly or with the provided entry point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/account/instruments.py
-(env)user@host: ~/v20-python-samples$ v20-account-instruments
-```
-
-
-### Polling for Account Changes
-
-The Account Changes script is defined at `src/account/changes.py`, and is used
-to fetch and display the current Account state, and then poll repeatedly for
-changes to it. This script provides a reference implementation for how OANDA
-recommends that Account state be managed. It can be executed directly or with
-the provided entry point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/account/changes.py
-(env)user@host: ~/v20-python-samples$ v20-account-changes
-```
-
-
-### Account Configuration
-
-The Account Configuration script is defined at `src/account/configure.py`, and
-is used to modify client Account configuration.  It can be executed directly or
-with the provided entry point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/account/changes.py
-(env)user@host: ~/v20-python-samples$ v20-account-changes
-```
-
-
-## Instrument Scripts
-
-### Fetch Instrument Candlesticks
-
-The script to fetch instrument candlesticks is defined at
-`src/instrument/candles.py`.  It can be executed directly or with the provided
-entry point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/instrument/candles.py
-(env)user@host: ~/v20-python-samples$ v20-instrument-candles
-```
-
-
-### Poll Instrument Candlesticks
-
-The script to poll instrument candlesticks is defined at
-`src/instrument/candles_poll.py`. It uses curses to redraw the current candle
-while it is being updated, and moves on to the next candle when the current
-candle is completed. It can be executed directly or with the provided entry
-point alias:
-
-```bash
-(env)user@host: ~/v20-python-samples$ python src/instrument/candles_poll.py
-(env)user@host: ~/v20-python-samples$ v20-instrument-candles-poll
-```
-
-
-## Orders
-
-### Create Market Order
-
-### Create Market Order
-
+| Source File | Entry Point | Description |
+| ----------- | ----------- | ----------- |
+| src/configure.py | v20-configure | Create/update a v20.conf file |
+| src/account/details.py | v20-account-details | Get the details of the current active Account |
+| src/account/summary.py | v20-account-summary | Get the summary of the current active Account |
+| src/account/instruments.py | v20-account-instruments | Get the list of tradeable instruments for the current active Account |
+| src/account/changes.py | v20-account-changes | Follow changes to the current active Account |
+| src/account/configure.py | v20-account-configure | Set configuration in the current active Account |
+| src/instrument/candles.py | v20-instrument-candles | Fetch candles for an instrument |
+| src/instrument/candles_poll.py | v20-instrument-candles-poll | Fetch and poll for candle updates for an instrument |
+| src/order/get.py | v20-order-get | Get the details of an order in the current active Account |
+| src/order/list_pending.py | v20-order-list-pending | List all pending Orders for the current active Account |
+| src/order/cancel.py | v20-order-cancel | Cancel a pending Order in the current active Account |
+| src/order/set_client_extensions.py | v20-order-set-client-extensions | Set the client extensions for a pending Order in the current active Account |
+| src/order/market.py | v20-order-market | Create a Market Order in the current active Account |
+| src/order/entry.py | v20-order-entry | Create or replace an Entry Order in the current active Account |
+| src/order/limit.py | v20-order-limit | Create or replace a Limit Order in the current active Account |
+| src/order/stop.py | v20-order-stop | Create or replace a Stop Order in the current active Account |
+| src/order/take-profit.py | v20-order-take-profit | Create or replace a Take Profit Order in the current active Account |
+| src/order/stop-loss.py | v20-order-stop-loss | Create or replace a Stop Loss Order in the current active Account |
+| src/order/trailing-stop-loss.py | v20-order-trailing-stop-loss | Create or replace a Trailing Stop Loss Order in the current active Account |
