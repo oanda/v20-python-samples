@@ -131,7 +131,7 @@ v20 configuration file is. If a configuration file exists in this location, no
 
 The Account scripts are sample programs that interact with the v20 REST API
 Account endpoints described at
-http://developer.oanda.com/rest-live-v20/account-ep/
+http://developer.oanda.com/rest-live-v20/account-ep/. 
 
 ### Account Summary
 
