@@ -2,14 +2,13 @@
 
 import argparse
 import common.config
-from args import OrderArguments
-from v20.order import StopOrderRequest
+from args import OrderArguments, add_replace_order_id_argument
 from view import print_order_create_response_transactions
 
 
 def main():
     """
-    Create an OANDA Stop Order in an Account based on the provided
+    Create or replace an OANDA Stop Order in an Account based on the provided
     command-line arguments.
     """
 
@@ -21,20 +20,25 @@ def main():
     common.config.add_argument(parser)
 
     #
+    # Add the argument to support replacing an existing argument
+    #
+    add_replace_order_id_argument(parser)
+
+    #
     # Add the command line arguments required for a Stop Order
     #
-    stopOrderArgs = OrderArguments(parser)
-    stopOrderArgs.add_instrument()
-    stopOrderArgs.add_units()
-    stopOrderArgs.add_price()
-    stopOrderArgs.add_price_bound()
-    stopOrderArgs.add_time_in_force()
-    stopOrderArgs.add_position_fill()
-    stopOrderArgs.add_take_profit_on_fill()
-    stopOrderArgs.add_stop_loss_on_fill()
-    stopOrderArgs.add_trailing_stop_loss_on_fill()
-    stopOrderArgs.add_client_order_extensions()
-    stopOrderArgs.add_client_trade_extensions()
+    orderArgs = OrderArguments(parser)
+    orderArgs.add_instrument()
+    orderArgs.add_units()
+    orderArgs.add_price()
+    orderArgs.add_price_bound()
+    orderArgs.add_time_in_force()
+    orderArgs.add_position_fill()
+    orderArgs.add_take_profit_on_fill()
+    orderArgs.add_stop_loss_on_fill()
+    orderArgs.add_trailing_stop_loss_on_fill()
+    orderArgs.add_client_order_extensions()
+    orderArgs.add_client_trade_extensions()
 
     args = parser.parse_args()
 
@@ -47,15 +51,25 @@ def main():
     #
     # Extract the Stop Order parameters from the parsed arguments
     #
-    stopOrderArgs.parse_arguments(args)
+    orderArgs.parse_arguments(args)
 
-    #
-    # Submit the request to create the Stop Order
-    #
-    response = api.order.stop(
-        args.config.active_account,
-        **stopOrderArgs.order_request
-    )
+    if args.replace_order_id is not None:
+        #
+        # Submit the request to cancel and replace a Stop Order
+        #
+        response = api.order.stop_replace(
+            args.config.active_account,
+            args.replace_order_id,
+            **orderArgs.parsed_args
+        )
+    else:
+        #
+        # Submit the request to create a Stop Order
+        #
+        response = api.order.stop(
+            args.config.active_account,
+            **orderArgs.parsed_args
+        )
 
     print "Response: {} ({})".format(response.status, response.reason)
     print

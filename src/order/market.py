@@ -53,7 +53,7 @@ def main():
     #
     response = api.order.market(
         args.config.active_account,
-        **marketOrderArgs.order_request
+        **marketOrderArgs.parsed_args
     )
 
     print "Response: {} ({})".format(response.status, response.reason)

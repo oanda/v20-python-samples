@@ -61,22 +61,44 @@ def print_order_create_response_transactions(response):
     Print out the transactions found in the order create response
     """
 
-    common.view.print_response_transaction(
-        response, 201, "Order Create", "orderCreateTransaction"
+    common.view.print_response_entity(
+        response, 201,
+        "Order Create",
+        "orderCreateTransaction"
     )
 
-    common.view.print_response_transaction(
-        response, 201, "Order Fill", "orderFillTransaction"
+    common.view.print_response_entity(
+        response, 201,
+        "Order Fill",
+        "orderFillTransaction"
     )
 
-    common.view.print_response_transaction(
-        response, 201, "Order Cancel", "orderCancelTransaction"
+    common.view.print_response_entity(
+        response, 201,
+        "Order Cancel",
+        "orderCancelTransaction"
     )
 
-    common.view.print_response_transaction(
-        response, 201, "Order Reissue", "orderReissueTransaction"
+    common.view.print_response_entity(
+        response, 201,
+        "Order Reissue",
+        "orderReissueTransaction"
     )
 
-    common.view.print_response_transaction(
-        response, 400, "Order Reject", "orderRejectTransaction"
+    common.view.print_response_entity(
+        response, 400,
+        "Order Reject",
+        "orderRejectTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, 201, 
+        "Order Reissue Reject",
+        "orderReissueRejectTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, 201, 
+        "Replacing Order Cancel", 
+        "replacingOrderCancelTransaction"
     )

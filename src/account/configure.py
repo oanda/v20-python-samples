@@ -4,7 +4,7 @@ import sys
 import select
 import argparse
 import common.config
-from common.view import print_response_transaction
+from common.view import print_response_entity
 from account import Account
 
 
@@ -64,7 +64,7 @@ def main():
         print "Success"
         print
 
-    print_response_transaction(
+    print_response_entity(
         response,
         "200",
         "Configure Transaction",

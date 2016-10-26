@@ -5,18 +5,30 @@ from __future__ import print_function
 import argparse
 import common.config
 from common.input import get_yn
-from common.view import print_entity, print_orders
+from view import print_orders
 
 
 def main():
+    """
+    Cancel all Orders pending within an Account.
+    """
+
     parser = argparse.ArgumentParser()
+
+    #
+    # Add the command line argument to parse to the v20 config
+    #
     common.config.add_argument(parser)
+
     args = parser.parse_args()
 
-    account_id = args.config.active_account
-    
     api = args.config.create_context()
 
+    account_id = args.config.active_account
+
+    #
+    # Get the list of all pending Orders
+    #
     response = api.order.list_pending(account_id)
 
     orders = response.get("orders", 200)
@@ -30,6 +42,9 @@ def main():
     if not get_yn("Cancel all Orders?"):
         return
 
+    #
+    # Loop through the pending Orders and cancel each one
+    #
     for order in orders:
         response = api.order.cancel(account_id, order.id)
 

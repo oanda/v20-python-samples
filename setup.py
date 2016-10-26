@@ -23,6 +23,9 @@ setup(
             'v20-order-take-profit = order.take_profit:main',
             'v20-order-stop-loss = order.stop_loss:main',
             'v20-order-trailing-stop-loss = order.trailing_stop_loss:main',
+            'v20-order-cancel = order.cancel:main',
+            'v20-order-get = order.get:main',
+            'v20-order-set-client-extensions = order.set_client_extensions:main',
         ]
     }
 )

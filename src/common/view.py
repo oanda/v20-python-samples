@@ -101,7 +101,7 @@ def print_collection(title, entities, columns):
 
 
 
-def print_response_transaction(
+def print_response_entity(
     response,
     expected_status,
     title,
