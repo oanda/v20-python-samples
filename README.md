@@ -155,3 +155,7 @@ in the READMEs provided in each src directory.
 | `src/order/trailing-stop-loss.py` | v20-order-trailing-stop-loss | Create or replace a Trailing Stop Loss Order in the current active Account |
 | `src/pricing/get.py` | v20-pricing-get | Fetch/poll the current Prices for a list of Instruments |
 | `src/pricing/stream.py` | v20-pricing-stream | Stream Prices for a list of Instruments |
+| `src/transaction/stream.py` | v20-transaction-stream | Stream Transactions for the current active Account |
+| `src/transaction/poll.py` | v20-transaction-poll | Poll Transactions for the current active Account |
+| `src/transaction/get.py` | v20-transaction-get | Get details for a Transaction in the current active Account |
+| `src/transaction/range.py` | v20-transaction-range | Get a range of Transactions in the current active Account |

@@ -37,12 +37,15 @@ class CandlePrinter(object):
         )
         
     def print_candle(self, candle):
-        time = str(
-            datetime.strptime(
-                candle.time,
-                "%Y-%m-%dT%H:%M:%S.000000000Z"
+        try:
+            time = str(
+                datetime.strptime(
+                    candle.time,
+                    "%Y-%m-%dT%H:%M:%S.000000000Z"
+                )
             )
-        )
+        except:
+            time = candle.time.split(".")[0]
 
         volume = candle.volume
 

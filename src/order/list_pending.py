@@ -14,7 +14,7 @@ def main():
         dest="summary",
         action="store_true",
         help="Print a summary of the orders",
-        default=True
+        default=False
     )
 
     parser.add_argument(

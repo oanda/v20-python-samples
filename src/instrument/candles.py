@@ -106,10 +106,10 @@ def main():
         kwargs["count"] = args.count
 
     if args.from_time is not None:
-        kwargs["fromTime"] = args.from_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
+        kwargs["fromTime"] = api.datetime_to_str(args.from_time)
 
     if args.to_time is not None:
-        kwargs["toTime"] = args.to_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
+        kwargs["toTime"] = api.datetime_to_str(args.to_time)
 
     price = "mid"
 

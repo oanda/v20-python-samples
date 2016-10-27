@@ -35,6 +35,16 @@ class OrderArguments(object):
         # order arguments that have been added
         self.param_parsers = []
 
+        # The default formatter for arguments that are parsed as datetimes
+        self.datetime_formatter = lambda dt: dt.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
+
+
+    def set_datetime_formatter(self, datetime_formatter):
+        """
+        Provide an alternate implementation of a datetime formatter
+        """
+        self.datetime_formatter = datetime_formatter
+
     def parse_arguments(self, args):
         """
         Call each param parser with the parsed arguments to extract the value
@@ -194,8 +204,7 @@ class OrderArguments(object):
             )
             return
             
-        self.parsed_args["gtdTime"] = \
-            args.gtd_time.strftime("%Y-%m-%dT%H:%M:%S.000000000Z")
+        self.parsed_args["gtdTime"] = self.datetime_formatter(args.gtd_time)
         
 
     def add_price_bound(self):

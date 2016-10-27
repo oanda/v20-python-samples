@@ -48,9 +48,16 @@ def main():
     api = args.config.create_context()
 
     #
+    # Use the api context's datetime formatter when serializing data
+    #
+    orderArgs.set_datetime_formatter(lambda dt: api.datetime_to_str(dt))
+
+    #
     # Extract the Limit Order parameters from the parsed arguments
     #
     orderArgs.parse_arguments(args)
+
+    print orderArgs.parsed_args
 
     if args.replace_order_id is not None:
         #
@@ -70,6 +77,7 @@ def main():
             **orderArgs.parsed_args
         )
 
+    print response.request.headers
     print "Response: {} ({})".format(response.status, response.reason)
     print
 

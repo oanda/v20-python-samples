@@ -89,13 +89,7 @@ class CandlePrinter():
         y = 3
 
         for candle in self.candles:
-            time = str(
-                datetime.strptime(
-                    candle.time,
-                    "%Y-%m-%dT%H:%M:%S.000000000Z"
-                )
-            )
-
+            time = candle.time.split(".")[0]
             volume = candle.volume
 
             for price in ["mid", "bid", "ask"]:

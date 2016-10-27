@@ -65,6 +65,7 @@ class Config(object):
         self.accounts = []
         self.active_account = None
         self.path = None
+        self.datetime_format = "RFC3339"
 
     def __str__(self):
         """
@@ -78,6 +79,7 @@ class Config(object):
         s += "ssl: {}\n".format(str(self.ssl).lower())
         s += "token: {}\n".format(self.token)
         s += "username: {}\n".format(self.username)
+        s += "datetime_format: {}\n".format(self.datetime_format)
         s += "accounts:\n"
         for a in self.accounts:
             s += "- {}\n".format(a)
@@ -123,6 +125,7 @@ class Config(object):
                 self.active_account = y.get(
                     "active_account", self.active_account
                 )
+                self.datetime_format = y.get("datetime_format", self.datetime_format)
         except:
             raise ConfigPathError(path)
 
@@ -147,6 +150,8 @@ class Config(object):
             raise ConfigValueError("account")
         if self.active_account is None:
             raise ConfigValueError("account")
+        if self.datetime_format is None:
+            raise ConfigValueError("datetime_format")
 
     def update_from_input(self):
         """
@@ -252,6 +257,22 @@ class Config(object):
         print "> Active Account is: {}".format(self.active_account)
         print
 
+        time_formats = ["RFC3339", "UNIX"]
+
+        index = 0
+
+        try:
+            index = time_formats.index(self.datetime_format)
+        except:
+            pass
+
+        self.datetime_format = input.get_from_list(
+            time_formats,
+            "Available Time Formats:",
+            "Select Time Format",
+            index
+        )
+
     def create_context(self):
         """
         Initialize an API context based on the Config instance
@@ -264,6 +285,8 @@ class Config(object):
         )
 
         ctx.set_token(self.token)
+
+        ctx.set_datetime_format(self.datetime_format)
 
         return ctx
 
