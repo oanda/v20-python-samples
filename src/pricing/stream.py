@@ -49,9 +49,9 @@ def main():
     # Print out each price as it is received
     #
     for msg_type, msg in response.parts():
-        if msg.type == "HEARTBEAT" and args.show_heartbeats:
+        if msg_type == "pricing.Heartbeat" and args.show_heartbeats:
             print view.heartbeat_to_string(msg)
-        elif msg.type == "PRICE":
+        elif msg_type == "pricing.Price":
            print view.price_to_string(msg)  
 
 if __name__ == "__main__":
