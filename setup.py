@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='v20-python-samples',
-    version='0.0.1',
+    version='0.1.1',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     entry_points={
@@ -27,7 +27,6 @@ setup(
             'v20-order-stop-loss = order.stop_loss:main',
             'v20-order-trailing-stop-loss = order.trailing_stop_loss:main',
             'v20-pricing-get = pricing.get:main',
-            'v20-pricing-poll = pricing.poll:main',
             'v20-pricing-stream = pricing.stream:main',
         ]
     }

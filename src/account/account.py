@@ -84,7 +84,7 @@ class Account(object):
             title=self.details.title()
         )
 
-        print
+        print("")
 
         print_positions_map(self.positions)
 
@@ -145,39 +145,39 @@ class Account(object):
         """
 
         for order in changes.ordersCreated:
-            print "[Order Created] {}".format(order.title())
+            print("[Order Created] {}".format(order.title()))
             self.orders[order.id] = order
 
         for order in changes.ordersCancelled:
-            print "[Order Cancelled] {}".format(order.title())
+            print("[Order Cancelled] {}".format(order.title()))
             self.orders.pop(order.id, None)
 
         for order in changes.ordersFilled:
-            print "[Order Filled] {}".format(order.title())
+            print("[Order Filled] {}".format(order.title()))
             self.orders.pop(order.id, None)
 
         for order in changes.ordersTriggered:
-            print "[Order Triggered] {}".format(order.title())
+            print("[Order Triggered] {}".format(order.title()))
             self.orders.pop(order.id, None)
 
         for trade in changes.tradesOpened:
-            print "[Trade Opened] {}".format(trade.title())
+            print("[Trade Opened] {}".format(trade.title()))
             self.trades[trade.id] = trade
 
         for trade in changes.tradesReduced:
-            print "[Trade Reduced] {}".format(trade.title())
+            print("[Trade Reduced] {}".format(trade.title()))
             self.trades[trade.id] = trade
 
         for trade in changes.tradesClosed:
-            print "[Trade Closed] {}".format(trade.title())
+            print("[Trade Closed] {}".format(trade.title()))
             self.trades.pop(trade.id, None)
 
         for position in changes.positions:
-            print "[Position Changed] {}".format(position.instrument)
+            print("[Position Changed] {}".format(position.instrument))
             self.positions[position.instrument] = position
 
         for transaction in changes.transactions:
-            print "[Transaction] {}".format(transaction.title())
+            print("[Transaction] {}".format(transaction.title()))
 
             self.transactions.append(transaction)
 

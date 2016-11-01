@@ -16,10 +16,10 @@ def get_string(prompt, default=None):
         try:
             value = raw_input(prompt) or default
         except KeyboardInterrupt:
-            print
+            print("")
             sys.exit()
         except EOFError:
-            print
+            print("")
             sys.exit()
         except:
             pass
@@ -34,10 +34,10 @@ def get_password(prompt):
             if len(password) > 0:
                 return password
         except KeyboardInterrupt:
-            print
+            print("")
             sys.exit()
         except EOFError:
-            print
+            print("")
             sys.exit()
         except:
             pass
@@ -77,10 +77,10 @@ def get_yn(prompt, default=True):
                 return False
 
         except KeyboardInterrupt:
-            print
+            print("")
             sys.exit()
         except EOFError:
-            print
+            print("")
             sys.exit()
         except:
             pass
@@ -109,10 +109,10 @@ def get_from_list(choices, title, prompt, default=0):
             if i >= 0 and i < len(choices):
                 choice = choices[i]
         except KeyboardInterrupt:
-            print
+            print("")
             sys.exit()
         except EOFError:
-            print
+            print("")
             sys.exit()
         except:
             pass

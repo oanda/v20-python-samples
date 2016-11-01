@@ -4,7 +4,7 @@ import argparse
 import common.config
 import common.view
 from common.input import get_yn
-from view import print_orders
+from .view import print_orders
 
 def main():
     """
@@ -52,9 +52,9 @@ def main():
         orders = response.get("orders", 200)
 
         if len(orders) == 0:
-            print "Account {} has no pending Orders to cancel".format(
+            print("Account {} has no pending Orders to cancel".format(
                 account_id
-            )
+            ))
             return
 
         print_orders(orders)
@@ -82,8 +82,8 @@ def main():
             args.order_id
         )
 
-        print "Response: {} ({})".format(response.status, response.reason)
-        print
+        print("Response: {} ({})".format(response.status, response.reason))
+        print("")
 
         common.view.print_response_entity(
             response, 200, "Order Cancel", "orderCancelTransaction"

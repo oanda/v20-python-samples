@@ -15,7 +15,7 @@ class CandlePrinter(object):
         self.time_width = 19
 
     def print_header(self):
-        print "{:<{width[time]}} {:<{width[type]}} {:<{width[price]}} {:<{width[price]}} {:<{width[price]}} {:<{width[price]}} {:<{width[volume]}}".format(
+        print("{:<{width[time]}} {:<{width[type]}} {:<{width[price]}} {:<{width[price]}} {:<{width[price]}} {:<{width[price]}} {:<{width[volume]}}".format(
             "Time",
             "Type",
             "Open",
@@ -24,9 +24,9 @@ class CandlePrinter(object):
             "Close",
             "Volume",
             width=self.width
-        )
+        ))
 
-        print "{} {} {} {} {} {} {}".format(
+        print("{} {} {} {} {} {} {}".format(
             "=" * self.width['time'],
             "=" * self.width['type'],
             "=" * self.width['price'],
@@ -34,7 +34,7 @@ class CandlePrinter(object):
             "=" * self.width['price'],
             "=" * self.width['price'],
             "=" * self.width['volume']
-        )
+        ))
         
     def print_candle(self, candle):
         time = str(
@@ -52,7 +52,7 @@ class CandlePrinter(object):
             if c is None:
                 continue
 
-            print "{:>{width[time]}} {:>{width[type]}} {:>{width[price]}} {:>{width[price]}} {:>{width[price]}} {:>{width[price]}} {:>{width[volume]}}".format(
+            print("{:>{width[time]}} {:>{width[type]}} {:>{width[price]}} {:>{width[price]}} {:>{width[price]}} {:>{width[price]}} {:>{width[volume]}}".format(
                 time,
                 price,
                 c.o,
@@ -61,7 +61,7 @@ class CandlePrinter(object):
                 c.c,
                 volume,
                 width=self.width
-            )
+            ))
 
             volume = ""
             time = ""

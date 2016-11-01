@@ -10,9 +10,9 @@ def print_title(s):
     Args:
         s: string to print as a title
     """
-    print s
-    print len(s) * "="
-    print
+    print(s)
+    print(len(s) * "=")
+    print("")
 
 
 def print_subtitle(s):
@@ -22,9 +22,9 @@ def print_subtitle(s):
     Args:
         s: string to print as a title
     """
-    print s
-    print len(s) * "-"
-    print
+    print(s)
+    print(len(s) * "-")
+    print("")
 
 
 def print_entity(entity, title=None, headers=True):
@@ -62,7 +62,7 @@ def print_entity(entity, title=None, headers=True):
             tablefmt=tablefmt
         ).encode('utf-8')
     )
-    print
+    print("")
 
 
 def print_collection(title, entities, columns):
@@ -97,7 +97,7 @@ def print_collection(title, entities, columns):
             tablefmt=tablefmt,
         ).encode('utf-8')
     )
-    print
+    print("")
 
 
 
@@ -126,6 +126,6 @@ def print_response_entity(
             response.get(transaction_name, expected_status),
             title=title
         )
-        print
+        print("")
     except:
         pass

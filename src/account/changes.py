@@ -4,7 +4,7 @@ import sys
 import select
 import argparse
 import common.config
-from account import Account
+from .account import Account
 
 def main():
     """
@@ -56,9 +56,9 @@ def main():
     def dump():
         account.dump()
 
-        print "Press <ENTER> to see current state for Account {}".format(
+        print("Press <ENTER> to see current state for Account {}".format(
             account.details.id
-        )
+        ))
 
     dump()
 

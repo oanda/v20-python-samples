@@ -3,7 +3,7 @@
 import argparse
 import common.config
 import common.args
-from view import CandlePrinter
+from .view import CandlePrinter
 from datetime import datetime
 
 
@@ -131,12 +131,12 @@ def main():
     response = api.instrument.candles(args.instrument, **kwargs)
 
     if response.status != 200:
-        print response
-        print response.body
+        print(response)
+        print(response.body)
         return
 
-    print "Instrument: {}".format(response.get("instrument", 200))
-    print "Granularity: {}".format(response.get("granularity", 200))
+    print("Instrument: {}".format(response.get("instrument", 200)))
+    print("Granularity: {}".format(response.get("granularity", 200)))
 
     printer = CandlePrinter()
 

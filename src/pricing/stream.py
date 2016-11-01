@@ -3,7 +3,7 @@
 import argparse
 import common.config
 import common.args
-import view
+from . import view
 
 
 def main():
@@ -50,9 +50,9 @@ def main():
     #
     for msg_type, msg in response.parts():
         if msg.type == "HEARTBEAT" and args.show_heartbeats:
-            print view.heartbeat_to_string(msg)
+            print(view.heartbeat_to_string(msg))
         elif msg.type == "PRICE":
-           print view.price_to_string(msg)  
+           print(view.price_to_string(msg))  
 
 if __name__ == "__main__":
     main()

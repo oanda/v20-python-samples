@@ -2,9 +2,9 @@
 
 import argparse
 import common.config
-from args import OrderArguments
+from .args import OrderArguments
 from v20.order import MarketOrderRequest
-from view import print_order_create_response_transactions
+from .view import print_order_create_response_transactions
 
 
 def main():
@@ -56,8 +56,8 @@ def main():
         **marketOrderArgs.parsed_args
     )
 
-    print "Response: {} ({})".format(response.status, response.reason)
-    print
+    print("Response: {} ({})".format(response.status, response.reason))
+    print("")
 
     print_order_create_response_transactions(response)
 

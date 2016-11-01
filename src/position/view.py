@@ -79,4 +79,4 @@ def print_positions(positions, open_only=True):
         ]
     )
 
-    print
+    print("")

@@ -40,4 +40,4 @@ def print_trades(trades):
         ]
     )
 
-    print
+    print("")

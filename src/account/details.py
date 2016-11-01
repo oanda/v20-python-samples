@@ -2,7 +2,7 @@
 
 import argparse
 import common.config
-from account import Account
+from .account import Account
 
 def main():
     """

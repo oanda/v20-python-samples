@@ -42,12 +42,12 @@ def main():
         args.order_id
     )
 
-    print "Response: {} ({})".format(response.status, response.reason)
-    print
+    print("Response: {} ({})".format(response.status, response.reason))
+    print("")
 
     order = response.get("order", 200)
 
-    print order
+    print(order)
 
 
 if __name__ == "__main__":

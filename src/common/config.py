@@ -188,18 +188,18 @@ class Config(object):
         self.hostname = hostnames[index]
         self.streaming_hostname = streaming_hostnames[index]
 
-        print "> API host selected is: {}".format(self.hostname)
-        print "> Streaming host selected is: {}".format(self.streaming_hostname)
-        print
+        print("> API host selected is: {}".format(self.hostname))
+        print("> Streaming host selected is: {}".format(self.streaming_hostname))
+        print("")
 
         self.username = input.get_string("Enter username", self.username)
 
-        print "> username is: {}".format(self.username)
-        print
+        print("> username is: {}".format(self.username))
+        print("")
 
         self.token = input.get_string("Enter personal access token", self.token)
 
-        print "> Using personal access token: {}".format(self.token)
+        print("> Using personal access token: {}".format(self.token))
 
         ctx = v20.Context(
             self.hostname,
@@ -220,7 +220,7 @@ class Config(object):
         response = ctx.account.list()
 
         if response.status != 200:
-            print response
+            print(response)
             sys.exit()
 
         self.accounts = [
@@ -230,7 +230,7 @@ class Config(object):
         self.accounts.sort()
 
         if len(self.accounts) == 0:
-            print "No Accounts available"
+            print("No Accounts available")
             sys.exit()
 
         index = 0
@@ -240,7 +240,7 @@ class Config(object):
         except:
             pass
 
-        print
+        print("")
 
         self.active_account = input.get_from_list(
             self.accounts,
@@ -249,8 +249,8 @@ class Config(object):
             index
         )
 
-        print "> Active Account is: {}".format(self.active_account)
-        print
+        print("> Active Account is: {}".format(self.active_account))
+        print("")
 
     def create_context(self):
         """
