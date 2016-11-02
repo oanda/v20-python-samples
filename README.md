@@ -10,7 +10,10 @@ running the v20 sample code:
 
 ```bash
 #
-# Set up the virtualenv and install required packages
+# Set up the virtualenv and install required packages. By default the
+# virtualenv will be setup to use python3. If python2 is desired, use the make
+# target "bootstrap-python2" and the virtualenv will be created under
+# "env-python2"
 #
 user@host: ~/v20-python-samples$ make bootstrap
 
