@@ -302,6 +302,8 @@ class Config(object):
 
         ctx.set_token(self.token)
 
+        ctx.set_datetime_format(self.datetime_format)
+
         return ctx
 
 
