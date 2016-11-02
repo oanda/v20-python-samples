@@ -2,7 +2,7 @@
 
 import argparse
 import common.config
-from view import print_orders
+from .view import print_orders
 
 
 def main():
@@ -44,7 +44,8 @@ def main():
         print_orders(orders)
     else:
         for order in orders:
-            print order
+            print(order)
+
         
 
 if __name__ == "__main__":

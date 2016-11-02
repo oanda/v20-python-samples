@@ -53,7 +53,7 @@ def print_orders(orders):
         ]
     )
 
-    print
+    print("")
 
 
 def print_order_create_response_transactions(response):

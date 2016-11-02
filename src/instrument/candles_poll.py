@@ -75,7 +75,7 @@ class CandlePrinter():
             width=self.field_width
         )
 
-        x = (len(header) - len(title)) / 2
+        x = int((len(header) - len(title)) / 2)
 
         self.stdscr.addstr(
             0,
@@ -184,8 +184,8 @@ def main():
         response = api.instrument.candles(args.instrument, **kwargs)
 
         if response.status != 200:
-            print response
-            print response.body
+            print(response)
+            print(response.body)
             return
 
         #

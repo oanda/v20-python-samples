@@ -19,24 +19,24 @@ def main():
     try:
         config.load(filename)
     except:
-        print "Config file '{}' doesn't exist, starting with defaults.".format(
+        print("Config file '{}' doesn't exist, starting with defaults.".format(
             filename
-        )
+        ))
         print
 
-    print
-    print "------------ Intitial v20 configuration ------------"
-    print str(config)
-    print "----------------------------------------------------"
-    print
+    print("")
+    print("------------ Intitial v20 configuration ------------")
+    print(str(config))
+    print("----------------------------------------------------")
+    print("")
 
     config.update_from_input()
 
-    print
-    print "-------------- New v20 configuration --------------"
-    print str(config)
-    print "---------------------------------------------------"
-    print
+    print("")
+    print("-------------- New v20 configuration --------------")
+    print(str(config))
+    print("---------------------------------------------------")
+    print("")
 
     dump = common.input.get_yn(
         "Dump v20 configuration to {}?".format(filename),

@@ -3,7 +3,7 @@
 import argparse
 import common.config
 import common.args
-import view
+from . import view
 import time
 
 
@@ -45,7 +45,7 @@ def main():
     
     api = args.config.create_context()
 
-    latest_price_time = None
+    latest_price_time = None 
 
     def poll(latest_price_time):
         """
@@ -70,8 +70,8 @@ def main():
         # seen in a price
         #
         for price in response.get("prices", 200):
-            if price.time > latest_price_time:
-                print view.price_to_string(price)
+            if latest_price_time is None or price.time > latest_price_time:
+                print(view.price_to_string(price))
 
         #
         # Stash and return the current latest price time

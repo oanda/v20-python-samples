@@ -2,8 +2,8 @@
 
 import argparse
 import common.config
-from args import OrderArguments, add_replace_order_id_argument
-from view import print_order_create_response_transactions
+from .args import OrderArguments, add_replace_order_id_argument
+from .view import print_order_create_response_transactions
 
 
 def main():
@@ -57,8 +57,6 @@ def main():
     #
     orderArgs.parse_arguments(args)
 
-    print orderArgs.parsed_args
-
     if args.replace_order_id is not None:
         #
         # Submit the request to cancel and replace a Limit Order
@@ -77,9 +75,8 @@ def main():
             **orderArgs.parsed_args
         )
 
-    print response.request.headers
-    print "Response: {} ({})".format(response.status, response.reason)
-    print
+    print("Response: {} ({})".format(response.status, response.reason))
+    print("")
 
     print_order_create_response_transactions(response)
 

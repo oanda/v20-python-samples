@@ -5,7 +5,7 @@ import select
 import argparse
 import common.config
 from common.view import print_response_entity
-from account import Account
+from .account import Account
 
 
 def main():
@@ -61,8 +61,8 @@ def main():
     response = api.account.configure(account_id, **kwargs)
 
     if response.status == 200:
-        print "Success"
-        print
+        print("Success")
+        print("")
 
     print_response_entity(
         response,

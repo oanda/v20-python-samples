@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='v20-python-samples',
-    version='0.0.1',
+    version='0.1.1',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     entry_points={

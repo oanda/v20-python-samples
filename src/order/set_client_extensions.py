@@ -3,7 +3,7 @@
 import argparse
 import common.config
 import common.view
-from args import OrderArguments
+from .args import OrderArguments
 
 
 def main():
@@ -50,12 +50,12 @@ def main():
         **extnArgs.parsed_args
     )
 
-    print "Response: {} ({})".format(response.status, response.reason)
-    print
+    print("Response: {} ({})".format(response.status, response.reason))
+    print("")
 
-    print response.get(
+    print(response.get(
         "orderClientExtensionsModifyTransaction", 200
-    )
+    ))
 
 
 if __name__ == "__main__":
