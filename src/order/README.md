@@ -40,7 +40,7 @@ directly or with the provided entry point alias:
 
 ```bash
 (env)user@host: ~/v20-python-samples$ python src/order/set_client_extensions.py
-(env)user@host: ~/v20-python-samples$ v20-order-set-extensions
+(env)user@host: ~/v20-python-samples$ v20-order-set-client-extensions
 ```
 
 ## Create Market Order

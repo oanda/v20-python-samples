@@ -8,6 +8,7 @@ setup(
     entry_points={
         'console_scripts': [
             'v20-configure = configure:main',
+            'v20-market-order-full-example = market_order_full_example:main',
             'v20-account-details = account.details:main',
             'v20-account-summary = account.summary:main',
             'v20-account-instruments = account.instruments:main',
@@ -32,6 +33,9 @@ setup(
             'v20-transaction-poll = transaction.poll:main',
             'v20-transaction-get = transaction.get:main',
             'v20-transaction-range = transaction.range:main',
+            'v20-trade-get = trade.get:main',
+            'v20-trade-close = trade.close:main',
+            'v20-trade-set-client-extensions = trade.set_client_extensions:main',
         ]
     }
 )

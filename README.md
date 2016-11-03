@@ -50,6 +50,15 @@ user@host: ~/v20-python-samples$
 ```
 
 
+## Configuration-free Example
+
+Most of the examples provided use a v20.conf discussed below. For a full
+example of how to create and use a v20 API context without the configuration
+wrapper, please examine `src/market_order_full_example.py`. This program
+enables the creation of a limited Market Order solely based on command line
+arguments.
+
+
 ## Configuration
 
 Using OANDA's v20 REST API requires configuration to set up connections and 
@@ -138,6 +147,7 @@ in the READMEs provided in each src directory.
 | Source File | Entry Point | Description |
 | ----------- | ----------- | ----------- |
 | `src/configure.py` | v20-configure | Create/update a v20.conf file |
+| `src/market_order_full_example.py` | v20-market-order-full-example | Limited Market Order example that does not use the v20.conf file |
 | `src/account/details.py` | v20-account-details | Get the details of the current active Account |
 | `src/account/summary.py` | v20-account-summary | Get the summary of the current active Account |
 | `src/account/instruments.py` | v20-account-instruments | Get the list of tradeable instruments for the current active Account |
@@ -162,3 +172,6 @@ in the READMEs provided in each src directory.
 | `src/transaction/poll.py` | v20-transaction-poll | Poll Transactions for the current active Account |
 | `src/transaction/get.py` | v20-transaction-get | Get details for a Transaction in the current active Account |
 | `src/transaction/range.py` | v20-transaction-range | Get a range of Transactions in the current active Account |
+| `src/trade/get.py` | v20-trade-get | Get all open Trades or a specific Trade in the current active Account |
+| `src/trade/close.py` | v20-trade-close | Close (partially or fully) a Trade in the current active Account |
+| `src/trade/set_client_extensions.py` | v20-trade-set-client-extensions | Set the client extensions for an open Trade in the current active Account |

@@ -8,7 +8,7 @@ from .args import OrderArguments
 
 def main():
     """
-    Get the details of an Order in an Account
+    Set the client extensions of an open Trade in an Account
     """
 
     parser = argparse.ArgumentParser()

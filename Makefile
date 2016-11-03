@@ -4,6 +4,7 @@ bootstrap: bootstrap-python3
 bootstrap-python3:
 	virtualenv -p python3 env
 	env/bin/pip install -r requirements/base.txt
+	env/bin/python install -r requirements/base.txt
 
 bootstrap-python2:
 	virtualenv env-python2

@@ -62,43 +62,43 @@ def print_order_create_response_transactions(response):
     """
 
     common.view.print_response_entity(
-        response, 201,
+        response, None,
         "Order Create",
         "orderCreateTransaction"
     )
 
     common.view.print_response_entity(
-        response, 201,
+        response, None,
         "Order Fill",
         "orderFillTransaction"
     )
 
     common.view.print_response_entity(
-        response, 201,
+        response, None,
         "Order Cancel",
         "orderCancelTransaction"
     )
 
     common.view.print_response_entity(
-        response, 201,
+        response, None,
         "Order Reissue",
         "orderReissueTransaction"
     )
 
     common.view.print_response_entity(
-        response, 400,
+        response, None,
         "Order Reject",
         "orderRejectTransaction"
     )
 
     common.view.print_response_entity(
-        response, 201, 
+        response, None,
         "Order Reissue Reject",
         "orderReissueRejectTransaction"
     )
 
     common.view.print_response_entity(
-        response, 201, 
+        response, None,
         "Replacing Order Cancel", 
         "replacingOrderCancelTransaction"
     )
