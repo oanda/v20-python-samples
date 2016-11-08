@@ -3,7 +3,7 @@
 import argparse
 import common.config
 import common.args
-from . import view
+from .view import price_to_string, heartbeat_to_string
 
 
 def main():
@@ -36,6 +36,8 @@ def main():
     
     api = args.config.create_streaming_context()
 
+    # api.set_stream_timeout(3)
+
     #
     # Subscribe to the pricing stream
     #
@@ -50,9 +52,9 @@ def main():
     #
     for msg_type, msg in response.parts():
         if msg_type == "pricing.Heartbeat" and args.show_heartbeats:
-            print(view.heartbeat_to_string(msg))
+            print(heartbeat_to_string(msg))
         elif msg_type == "pricing.Price":
-           print(view.price_to_string(msg))
+           print(price_to_string(msg))
 
 if __name__ == "__main__":
     main()

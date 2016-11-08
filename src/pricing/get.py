@@ -3,7 +3,7 @@
 import argparse
 import common.config
 import common.args
-from . import view
+from .view import price_to_string
 import time
 
 
@@ -71,7 +71,7 @@ def main():
         #
         for price in response.get("prices", 200):
             if latest_price_time is None or price.time > latest_price_time:
-                print(view.price_to_string(price))
+                print(price_to_string(price))
 
         #
         # Stash and return the current latest price time
