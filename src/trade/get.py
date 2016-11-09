@@ -18,7 +18,7 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--trade-id",
+        "--trade-id", "-t",
         help=(
             "The ID of the Trade to get. If prepended "
             "with an '@', this will be interpreted as a client Trade ID"
@@ -26,14 +26,14 @@ def main():
     )
 
     parser.add_argument(
-        "--all",
+        "--all", "-a",
         action="store_true",
         default=False,
         help="Flag to get all open Trades in the Account"
     )
 
     parser.add_argument(
-        "--summary",
+        "--summary", "-s",
         dest="summary",
         action="store_true",
         help="Print Trade summary instead of full details",
@@ -41,7 +41,7 @@ def main():
     )
 
     parser.add_argument(
-        "--details",
+        "--details", "-d",
         dest="summary",
         help="Print Trade details instead of summary",
         action="store_false"

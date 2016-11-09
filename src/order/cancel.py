@@ -19,7 +19,7 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--order-id",
+        "--order-id", "-o",
         help=(
             "The ID of the Order to cancel. If prepended "
             "with an '@', this will be interpreted as a client Order ID"
@@ -27,7 +27,7 @@ def main():
     )
 
     parser.add_argument(
-        "--all",
+        "--all", "-a",
         action="store_true",
         default=False,
         help="Flag to cancel all Orders in the Account"
@@ -77,7 +77,7 @@ def main():
         #
         # Submit the request to create the Market Order
         #
-        response = api.order.get(
+        response = api.order.cancel(
             account_id,
             args.order_id
         )

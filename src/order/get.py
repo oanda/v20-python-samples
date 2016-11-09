@@ -18,8 +18,7 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--order-id",
-        required=True,
+        "orderid",
         help=(
             "The ID of the Order to get. If prepended "
             "with an '@', this will be interpreted as a client Order ID"
@@ -39,7 +38,7 @@ def main():
     #
     response = api.order.get(
         args.config.active_account,
-        args.order_id
+        args.orderid
     )
 
     print("Response: {} ({})".format(response.status, response.reason))

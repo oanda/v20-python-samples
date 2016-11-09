@@ -8,7 +8,7 @@ def add_replace_order_id_argument(parser):
     Add an argument to the parser for replacing an existing Order
     """
     parser.add_argument(
-        "--replace-order-id",
+        "--replace-order-id", "-r",
         help=(
             "The ID of the Order to replace, only provided if the intent is to "
             "replace an existing pending Order. If prepended "
@@ -56,8 +56,7 @@ class OrderArguments(object):
 
     def add_trade_id(self):
         self.parser.add_argument(
-            "--trade-id",
-            required=True,
+            "tradeid",
             help=(
                 "The ID of the Trade to create an Order for. If prepended "
                 "with an '@', this will be interpreted as a client Trade ID"
@@ -70,27 +69,19 @@ class OrderArguments(object):
 
 
     def parse_trade_id(self, args):
-        if args.trade_id is None:
+        if args.tradeid is None:
             return
 
         if args.trade.id[0] == '@':
-            self.parsed_args["clientTradeID"] = args.trade_id[1:]
+            self.parsed_args["clientTradeID"] = args.tradeid[1:]
         else:
-            self.parsed_args["tradeID"] = args.trade_id
-
-
-    def parse_trade_id(self, args):
-        if args.trade_id is None:
-            return
-
-        self.parsed_args["tradeID"] = args.trade_id
+            self.parsed_args["tradeID"] = args.tradeid
 
 
     def add_instrument(self):
         self.parser.add_argument(
-            "--instrument",
+            "instrument",
             type=common.args.instrument,
-            required=True,
             help="The instrument to place the Order for"
         )
 
@@ -108,8 +99,7 @@ class OrderArguments(object):
 
     def add_units(self):
         self.parser.add_argument(
-            "--units",
-            required=True,
+            "units",
             help=(
                 "The number of units for the Order. "
                 "Negative values indicate sell, Positive values indicate buy"
@@ -130,8 +120,7 @@ class OrderArguments(object):
 
     def add_price(self):
         self.parser.add_argument(
-            "--price",
-            required=True,
+            "price",
             help="The price threshold for the Order"
         )
 
@@ -149,8 +138,7 @@ class OrderArguments(object):
 
     def add_distance(self):
         self.parser.add_argument(
-            "--distance",
-            required=True,
+            "distance",
             help="The price distance for the Order"
         )
 
@@ -168,7 +156,7 @@ class OrderArguments(object):
 
     def add_time_in_force(self, choices=["FOK", "IOC", "GTC", "GFD", "GTD"]):
         self.parser.add_argument(
-            "--time-in-force",
+            "--time-in-force", "--tif",
             choices=choices,
             help="The time-in-force to use for the Order"
         )
@@ -209,7 +197,7 @@ class OrderArguments(object):
 
     def add_price_bound(self):
         self.parser.add_argument(
-            "--price-bound",
+            "--price-bound", "-b",
             help="The worst price bound allowed for the Order"
         )
 
@@ -247,17 +235,17 @@ class OrderArguments(object):
 
     def add_client_order_extensions(self):
         self.parser.add_argument(
-            "--client-order-id",
+            "--client-order-id", "--coi",
             help="The client-provided ID to assign to the Order"
         )
 
         self.parser.add_argument(
-            "--client-order-tag",
+            "--client-order-tag", "--cot",
             help="The client-provided tag to assign to the Order"
         )
 
         self.parser.add_argument(
-            "--client-order-comment",
+            "--client-order-comment", "--coc",
             help="The client-provided comment to assign to the Order"
         )
 
@@ -291,12 +279,12 @@ class OrderArguments(object):
 
     def add_client_trade_extensions(self):
         self.parser.add_argument(
-            "--client-trade-id",
+            "--client-trade-id", "--cti",
             help="The client-provided ID to assign a Trade opened by the Order"
         )
 
         self.parser.add_argument(
-            "--client-trade-tag",
+            "--client-trade-tag", "--ctt",
             help=(
                 "The client-provided tag to assign to a Trade opened by the "
                 "Order"
@@ -304,7 +292,7 @@ class OrderArguments(object):
         )
 
         self.parser.add_argument(
-            "--client-trade-comment",
+            "--client-trade-comment", "--ctc",
             help=(
                 "The client-provided comment to assign to a Trade opened by "
                 "the Order"
@@ -341,7 +329,7 @@ class OrderArguments(object):
 
     def add_take_profit_on_fill(self):
         self.parser.add_argument(
-            "--take-profit-price",
+            "--take-profit-price", "--tp",
             help=(
                 "The price of the Take Profit to add to a Trade opened by this "
                 "Order"
@@ -367,7 +355,7 @@ class OrderArguments(object):
 
     def add_stop_loss_on_fill(self):
         self.parser.add_argument(
-            "--stop-loss-price",
+            "--stop-loss-price", "--sl",
             help=(
                 "The price of the Stop Loss to add to a Trade opened by this "
                 "Order"
@@ -393,7 +381,7 @@ class OrderArguments(object):
 
     def add_trailing_stop_loss_on_fill(self):
         self.parser.add_argument(
-            "--trailing-stop-loss-distance",
+            "--trailing-stop-loss-distance", "--tsl",
             help=(
                 "The price distance for the Trailing Stop Loss to add to a "
                 "Trade opened by this Order"

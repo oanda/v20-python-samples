@@ -18,7 +18,7 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        '--instrument',
+        '--instrument', "-i",
         type=common.args.instrument,
         required=True,
         action="append",
@@ -26,7 +26,7 @@ def main():
     )
 
     parser.add_argument(
-        '--poll',
+        '--poll', "-p",
         action="store_true",
         default=False,
         help="Flag used to poll repeatedly for price updates"

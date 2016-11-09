@@ -201,7 +201,7 @@ class Account(object):
                 continue
 
             for field in trade_state.fields():
-                update_attribute(trade, field.name, field.value)
+                setattr(trade, field.name, field.value)
 
 
     def apply_position_states(self, position_states):
