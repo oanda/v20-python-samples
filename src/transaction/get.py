@@ -28,7 +28,7 @@ def main():
 
     response = api.transaction.get(account_id, args.id)
 
-    print response.get("transaction", 200)
+    print(response.get("transaction", 200))
 
     
 if __name__ == "__main__":

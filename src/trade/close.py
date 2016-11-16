@@ -19,8 +19,7 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--trade-id",
-        required=True,
+        "tradeid",
         help=(
             "The ID of the Trade to close. If prepended "
             "with an '@', this will be interpreted as a client Trade ID"
@@ -50,7 +49,7 @@ def main():
 
     response = api.trade.close(
         account_id,
-        args.trade_id,
+        args.tradeid,
         units=args.units
     )
 

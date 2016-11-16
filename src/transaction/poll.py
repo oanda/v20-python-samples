@@ -43,7 +43,7 @@ def main():
         )
 
         for transaction in response.get("transactions", 200):
-            print transaction.title()
+            print(transaction.title())
 
         last_transaction_id = response.get("lastTransactionID", 200)
 

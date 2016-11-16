@@ -19,11 +19,11 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--trade-id",
-        required=True,
+        "tradeid",
         help=(
-            "The ID of the Order to get. If prepended "
-            "with an '@', this will be interpreted as a client Order ID"
+            "The ID of the Trade to set the client extensions for. If "
+            "prepended with an '@', this will be interpreted as a client Order "
+            "ID"
         )
     )
 
@@ -68,7 +68,7 @@ def main():
     #
     response = api.trade.set_client_extensions(
         account_id,
-        args.trade_id,
+        args.tradeid,
         clientExtensions=clientExtensions
     )
 

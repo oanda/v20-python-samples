@@ -63,7 +63,7 @@ def main():
     if args.all:
         response = api.trade.list_open(account_id)
 
-        for trade in response.get("trades", 200):
+        for trade in reversed(response.get("trades", 200)):
             if args.summary:
                 print(trade.title())
             else:

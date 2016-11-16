@@ -24,9 +24,8 @@ def main():
     common.config.add_argument(parser)
 
     parser.add_argument(
-        "--instrument",
+        "instrument",
         type=common.args.instrument,
-        required=True,
         help="The instrument to get candles for"
     )
 

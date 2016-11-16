@@ -10,11 +10,14 @@ def get_string(prompt, default=None):
         "" if default is None else " [{}]".format(default)
     )
 
+    try: i = raw_input
+    except NameError: i = input
+
     value = None
 
     while value is None or len(value) == 0:
         try:
-            value = raw_input(prompt) or default
+            value = i(prompt) or default
         except KeyboardInterrupt:
             print("")
             sys.exit()
@@ -58,9 +61,12 @@ def get_yn(prompt, default=True):
         choices
     )
 
+    try: i = raw_input
+    except NameError: i = input
+
     while choice is None:
         try:
-            s = raw_input(prompt)
+            s = i(prompt)
 
             if len(s) == 0 and default is not None:
                 return default
@@ -100,9 +106,12 @@ def get_from_list(choices, title, prompt, default=0):
     for i, c in enumerate(choices):
         print("[{}] {}".format(i, c))
 
+    try: i = raw_input
+    except NameError: i = input
+
     while choice is None:
         try:
-            s = raw_input(prompt) or default
+            s = i(prompt) or default
 
             i = int(s)
 

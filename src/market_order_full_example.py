@@ -34,14 +34,12 @@ def main():
     # Add Account arguments
     #
     parser.add_argument(
-        "--account-id",
-        required=True,
+        "accountid",
         help="v20 Account ID"
     )
 
     parser.add_argument(
-        "--token",
-        required=True,
+        "token",
         help="v20 Auth Token"
     )
 
@@ -49,15 +47,13 @@ def main():
     # Add arguments for minimal Market Order
     #
     parser.add_argument(
-        "--instrument",
+        "instrument",
         type=common.args.instrument,
-        required=True,
         help="The instrument to place the Market Order for"
     )
 
     parser.add_argument(
-        "--units",
-        required=True,
+        "units",
         help="The number of units for the Market Order"
     )
 
@@ -69,24 +65,14 @@ def main():
     api = v20.Context(
         args.hostname,
         args.port,
-        True
+        token=args.token
     )
-
-    #
-    # Set the auth token to use
-    #
-    api.set_token(args.token)
-
-    #
-    # Extract the Account ID from the arguments
-    #
-    account_id = args.account_id
 
     #
     # Submit the request to create the Market Order
     #
     response = api.order.market(
-        account_id,
+        args.accountid,
         instrument=args.instrument,
         units=args.units
     )

@@ -36,6 +36,8 @@ def main():
     
     api = args.config.create_streaming_context()
 
+    # api.set_convert_decimal_number_to_native(False)
+
     # api.set_stream_timeout(3)
 
     #

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import yaml
 import os
 import sys
@@ -98,7 +99,7 @@ class Config(object):
         path = os.path.expanduser(path)
 
         with open(path, "w") as f:
-            print >>f, str(self)
+            print(str(self), file=f)
 
     def load(self, path):
         """
@@ -281,12 +282,10 @@ class Config(object):
             self.hostname,
             self.port,
             self.ssl,
-            application="sample_code"
+            application="sample_code",
+            token=self.token,
+            datetime_format=self.datetime_format
         )
-
-        ctx.set_token(self.token)
-
-        ctx.set_datetime_format(self.datetime_format)
 
         return ctx
 
@@ -297,12 +296,11 @@ class Config(object):
         ctx = v20.Context(
             self.streaming_hostname,
             self.port,
-            self.ssl
+            self.ssl,
+            application="sample_code",
+            token=self.token,
+            datetime_format=self.datetime_format
         )
-
-        ctx.set_token(self.token)
-
-        ctx.set_datetime_format(self.datetime_format)
 
         return ctx
 
