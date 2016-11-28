@@ -175,3 +175,4 @@ in the READMEs provided in each src directory.
 | `src/trade/get.py` | v20-trade-get | Get all open Trades or a specific Trade in the current active Account |
 | `src/trade/close.py` | v20-trade-close | Close (partially or fully) a Trade in the current active Account |
 | `src/trade/set_client_extensions.py` | v20-trade-set-client-extensions | Set the client extensions for an open Trade in the current active Account |
+| `src/position/close.py` | v20-position-close | Close a position for an instrument in the current active Account |
