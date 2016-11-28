@@ -36,6 +36,7 @@ setup(
             'v20-trade-get = trade.get:main',
             'v20-trade-close = trade.close:main',
             'v20-trade-set-client-extensions = trade.set_client_extensions:main',
+            'v20-position-close = position.close:main',
         ]
     }
 )

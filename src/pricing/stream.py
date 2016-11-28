@@ -24,6 +24,20 @@ def main():
     )
 
     parser.add_argument(
+        '--snapshot',
+        action="store_true",
+        default=True,
+        help="Request an initial snapshot"
+    )
+
+    parser.add_argument(
+        '--no-snapshot',
+        dest="snapshot",
+        action="store_false",
+        help="Do not request an initial snapshot"
+    )
+
+    parser.add_argument(
         '--show-heartbeats', "-s",
         action='store_true',
         default=False,
@@ -45,7 +59,7 @@ def main():
     #
     response = api.pricing.stream(
         account_id,
-        snapshot=True,
+        snapshot=args.snapshot,
         instruments=",".join(args.instrument),
     )
     

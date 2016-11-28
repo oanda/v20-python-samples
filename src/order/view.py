@@ -69,14 +69,50 @@ def print_order_create_response_transactions(response):
 
     common.view.print_response_entity(
         response, None,
+        "Long Order Create",
+        "longOrderCreateTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, None,
+        "Short Order Create",
+        "shortOrderCreateTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, None,
         "Order Fill",
         "orderFillTransaction"
     )
 
     common.view.print_response_entity(
         response, None,
+        "Long Order Fill",
+        "longOrderFillTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, None,
+        "Short Order Fill",
+        "shortOrderFillTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, None,
         "Order Cancel",
         "orderCancelTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, None,
+        "Long Order Cancel",
+        "longOrderCancelTransaction"
+    )
+
+    common.view.print_response_entity(
+        response, None,
+        "Short Order Cancel",
+        "shortOrderCancelTransaction"
     )
 
     common.view.print_response_entity(

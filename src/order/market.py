@@ -61,6 +61,5 @@ def main():
 
     print_order_create_response_transactions(response)
 
-
 if __name__ == "__main__":
     main()
