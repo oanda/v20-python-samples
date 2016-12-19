@@ -122,10 +122,8 @@ def print_response_entity(
     """
 
     try:
-        print_entity(
-            response.get(transaction_name, expected_status),
-            title=title
-        )
+        transaction = response.get(transaction_name, expected_status)
+        print_entity(transaction, title=title)
         print("")
     except:
         pass

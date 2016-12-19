@@ -18,7 +18,7 @@ def main():
     )
 
     parser.add_argument(
-        "--details",
+        "--verbose", "-v",
         dest="summary",
         help="Print details of the orders",
         action="store_false"
@@ -40,11 +40,15 @@ def main():
 
     orders = sorted(orders, key=lambda o: int(o.id))
 
-    if args.summary:
-        print_orders(orders)
-    else:
-        for order in orders:
-            print(order)
+    if not args.summary:
+        print("-" * 80)
+
+    for order in orders:
+        if args.summary:
+            print(order.title())
+        else:
+            print(order.yaml(True))
+            print("-" * 80)
 
         
 

@@ -41,7 +41,7 @@ def main():
     )
 
     parser.add_argument(
-        "--details", "-d",
+        "--verbose", "-v",
         dest="summary",
         help="Print Trade details instead of summary",
         action="store_false"
@@ -63,11 +63,15 @@ def main():
     if args.all:
         response = api.trade.list_open(account_id)
 
+        if not args.summary:
+            print("-" * 80)
+
         for trade in reversed(response.get("trades", 200)):
             if args.summary:
                 print(trade.title())
             else:
-                print(trade)
+                print(trade.yaml(True))
+                print("-" * 80)
         
         return
 
@@ -79,7 +83,7 @@ def main():
         if args.summary:
             print(trade.title())
         else:
-            print(trade)
+            print(trade.yaml(True))
 
         return
 
