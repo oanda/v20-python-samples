@@ -53,7 +53,7 @@ def main():
     )
 
     for transaction in response.get("transactions", 200):
-        print transaction.title()
+        print(transaction.title())
 
     
 if __name__ == "__main__":
