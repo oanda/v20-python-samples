@@ -83,6 +83,12 @@ def main():
         help="The end date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
     )
 
+    parser.add_argument(
+        "--alignment-timezone",
+        default=None,
+        help="The timezone to used for aligning daily candles"
+    )
+
     args = parser.parse_args()
 
     account_id = args.config.active_account
@@ -109,6 +115,9 @@ def main():
 
     if args.to_time is not None:
         kwargs["toTime"] = api.datetime_to_str(args.to_time)
+
+    if args.alignment_timezone is not None:
+        kwargs["alignmentTimezone"] = args.alignment_timezone
 
     price = "mid"
 
