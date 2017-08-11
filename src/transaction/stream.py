@@ -32,7 +32,7 @@ def main():
         if msg.type == "HEARTBEAT" and not args.show_heartbeats:
             continue
 
-        print msg.summary()
+        print(msg.summary())
 
 
 if __name__ == "__main__":
