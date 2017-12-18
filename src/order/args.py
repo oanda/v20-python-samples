@@ -72,7 +72,7 @@ class OrderArguments(object):
         if args.tradeid is None:
             return
 
-        if args.trade.id[0] == '@':
+        if args.tradeid[0] == '@':
             self.parsed_args["clientTradeID"] = args.tradeid[1:]
         else:
             self.parsed_args["tradeID"] = args.tradeid
