@@ -1,5 +1,5 @@
-pyyaml==3.11
-tabulate==0.7.5
-requests==2.11.1
+pyyaml==3.13
+tabulate==0.8.2
+requests==2.20.0
 ujson==1.35
-v20==3.0.14.0
+v20==3.0.25.0
