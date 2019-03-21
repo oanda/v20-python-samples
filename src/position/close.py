@@ -77,6 +77,9 @@ def main():
             args.instrument,
             shortUnits=args.short_units
         )
+    else:
+        print("No units have been provided");
+        return
 
     print(
         "Response: {} ({})\n".format(
