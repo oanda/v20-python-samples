@@ -57,8 +57,15 @@ def main():
     # v20 config file
     #
     api = args.config.create_context()
-
-    if args.long_units is not None:
+            
+    if args.long_units is not None and args.short_units is not None:
+        response = api.position.close(
+            account_id,
+            args.instrument,
+            longUnits=args.long_units,
+            shortUnits=args.short_units
+        )
+    elif args.long_units is not None:
         response = api.position.close(
             account_id,
             args.instrument,
@@ -68,13 +75,6 @@ def main():
         response = api.position.close(
             account_id,
             args.instrument,
-            shortUnits=args.short_units
-        )
-    else:
-        response = api.position.close(
-            account_id,
-            args.instrument,
-            longUnits=args.long_units,
             shortUnits=args.short_units
         )
 
