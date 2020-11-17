@@ -42,10 +42,10 @@ def main():
     args = parser.parse_args()
 
     account_id = args.config.active_account
-    
+
     api = args.config.create_context()
 
-    latest_price_time = None 
+    latest_price_time = None
 
     def poll(latest_price_time):
         """
@@ -66,7 +66,7 @@ def main():
         )
 
         #
-        # Print out all prices newer than the lastest time 
+        # Print out all prices newer than the lastest time
         # seen in a price
         #
         for price in response.get("prices", 200):
@@ -79,7 +79,7 @@ def main():
         for price in response.get("prices", 200):
             if latest_price_time is None or price.time > latest_price_time:
                 latest_price_time = price.time
-    
+
         return latest_price_time
 
     #

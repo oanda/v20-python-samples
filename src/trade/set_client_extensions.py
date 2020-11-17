@@ -22,8 +22,8 @@ def main():
         "tradeid",
         help=(
             "The ID of the Trade to set the client extensions for. If "
-            "prepended with an '@', this will be interpreted as a client Order "
-            "ID"
+            "prepended with an '@', this will be interpreted as a client "
+            "Order ID"
         )
     )
 
@@ -45,10 +45,10 @@ def main():
     args = parser.parse_args()
 
     if (args.client_id is None and
-        args.tag is None and
-        args.comment is None):
+            args.tag is None and
+            args.comment is None):
         parser.error("must provide at least one client extension to be set")
-        
+
     clientExtensions = v20.transaction.ClientExtensions(
         id=args.client_id,
         comment=args.comment,

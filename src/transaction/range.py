@@ -3,7 +3,6 @@
 import argparse
 import common.config
 import common.args
-import time
 
 
 def main():
@@ -41,7 +40,7 @@ def main():
     filter = None
 
     if args.type is not None:
-        filter = ",".join(args.type) 
+        filter = ",".join(args.type)
 
     account_id = args.config.active_account
 
@@ -55,6 +54,6 @@ def main():
     for transaction in response.get("transactions", 200):
         print(transaction.title())
 
-    
+
 if __name__ == "__main__":
     main()

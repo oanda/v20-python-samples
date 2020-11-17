@@ -32,9 +32,9 @@ def main():
         "--long-units",
         default=None,
         help=(
-            "The amount of the long Position to close. Either the string 'ALL' "
-            "indicating a full Position close, the string 'NONE', or the "
-            "number of units of the Position to close"
+            "The amount of the long Position to close. Either the string "
+            "'ALL' indicating a full Position close, the string 'NONE', or "
+            "the number of units of the Position to close"
         )
     )
 
@@ -43,8 +43,8 @@ def main():
         default=None,
         help=(
             "The amount of the short Position to close. Either the string "
-            "'ALL' indicating a full Position close, the string 'NONE', or the "
-            "number of units of the Position to close"
+            "'ALL' indicating a full Position close, the string 'NONE', or "
+            "the number of units of the Position to close"
         )
     )
 
@@ -78,7 +78,7 @@ def main():
             shortUnits=args.short_units
         )
     else:
-        print("No units have been provided");
+        print("No units have been provided")
         return
 
     print(

@@ -3,7 +3,6 @@
 import argparse
 import common.config
 import common.args
-import time
 
 
 def main():
@@ -30,6 +29,6 @@ def main():
 
     print(response.get("transaction", 200))
 
-    
+
 if __name__ == "__main__":
     main()

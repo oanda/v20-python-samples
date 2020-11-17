@@ -3,6 +3,7 @@ from position.view import print_positions_map
 from order.view import print_orders_map
 from trade.view import print_trades_map
 
+
 def update_attribute(dest, name, value):
     """
     Set dest[name] to value if it exists and is not None
@@ -11,6 +12,7 @@ def update_attribute(dest, name, value):
     if hasattr(dest, name) and \
        getattr(dest, name) is not None:
         setattr(dest, name, value)
+
 
 class Account(object):
     """
@@ -65,14 +67,13 @@ class Account(object):
         #
         # Keep a cache of the last self.transaction_cache_depth Transactions
         #
-        self.transaction_cache_depth = transaction_cache_depth 
+        self.transaction_cache_depth = transaction_cache_depth
         self.transactions = []
 
         #
         # The Account details
         #
         self.details = account
-
 
     def dump(self):
         """
@@ -91,7 +92,6 @@ class Account(object):
         print_orders_map(self.orders)
 
         print_trades_map(self.trades)
-
 
     def trade_get(self, id):
         """
@@ -119,7 +119,6 @@ class Account(object):
 
         return self.orders.get(id, None)
 
-
     def position_get(self, instrument):
         """
         Fetch an open Position
@@ -134,13 +133,12 @@ class Account(object):
 
         return self.positions.get(instrument, None)
 
-
     def apply_changes(self, changes):
         """
         Update the Account state with a set of changes provided by the server.
 
         Args:
-            changes: a v20.account.AccountChanges object representing the 
+            changes: a v20.account.AccountChanges object representing the
                      changes that have been made to the Account
         """
 
@@ -184,7 +182,6 @@ class Account(object):
             if len(self.transactions) > self.transaction_cache_depth:
                 self.transactions.pop(0)
 
-
     def apply_trade_states(self, trade_states):
         """
         Update state for open Trades
@@ -203,14 +200,14 @@ class Account(object):
             for field in trade_state.fields():
                 setattr(trade, field.name, field.value)
 
-
     def apply_position_states(self, position_states):
         """
         Update state for all Positions
 
         Args:
-            position_states: A list of v20.trade.CalculatedPositionState objects
-                             representing changes to the state of open Position
+            position_states: A list of v20.trade.CalculatedPositionState
+                             objects representing changes to the state of open
+                             Position
 
         """
 
@@ -223,7 +220,6 @@ class Account(object):
             position.unrealizedPL = position_state.netUnrealizedPL
             position.long.unrealizedPL = position_state.longUnrealizedPL
             position.short.unrealizedPL = position_state.shortUnrealizedPL
-
 
     def apply_order_states(self, order_states):
         """
@@ -244,10 +240,9 @@ class Account(object):
 
             self.order_states[order.id] = order_state
 
-
     def apply_state(self, state):
         """
-        Update the state of an Account 
+        Update the state of an Account
 
         Args:
             state: A v20.account.AccountState object representing changes to

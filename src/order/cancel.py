@@ -6,6 +6,7 @@ import common.view
 from common.input import get_yn
 from .view import print_orders
 
+
 def main():
     """
     Cancel one or more Pending Orders in an Account
@@ -68,7 +69,9 @@ def main():
         for order in orders:
             response = api.order.cancel(account_id, order.id)
 
-            orderCancelTransaction = response.get("orderCancelTransaction", 200)
+            orderCancelTransaction = response.get(
+                "orderCancelTransaction", 200
+            )
 
             print(orderCancelTransaction.title())
 
@@ -90,7 +93,8 @@ def main():
         )
 
         common.view.print_response_entity(
-            response, 404, "Order Cancel Reject", "orderCancelRejectTransaction"
+            response, 404, "Order Cancel Reject",
+            "orderCancelRejectTransaction"
         )
     else:
         parser.error("Must provide --order-id or --all")

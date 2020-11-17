@@ -23,12 +23,12 @@ def main():
     args = parser.parse_args()
 
     account_id = args.config.active_account
-    
+
     api = args.config.create_streaming_context()
 
     response = api.transaction.stream(account_id)
-    
-    for msg_type, msg in response.parts():
+
+    for _, msg in response.parts():
         if msg.type == "HEARTBEAT" and not args.show_heartbeats:
             continue
 

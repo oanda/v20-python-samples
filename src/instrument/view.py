@@ -6,25 +6,29 @@ from datetime import datetime
 class CandlePrinter(object):
     def __init__(self):
         self.width = {
-            'time' : 19,
-            'type' : 4,
-            'price' : 8,
-            'volume' : 6,
+            'time': 19,
+            'type': 4,
+            'price': 8,
+            'volume': 6,
         }
         # setattr(self.width, "time", 19)
         self.time_width = 19
 
     def print_header(self):
-        print("{:<{width[time]}} {:<{width[type]}} {:<{width[price]}} {:<{width[price]}} {:<{width[price]}} {:<{width[price]}} {:<{width[volume]}}".format(
-            "Time",
-            "Type",
-            "Open",
-            "High",
-            "Low",
-            "Close",
-            "Volume",
-            width=self.width
-        ))
+        print(
+            "{:<{width[time]}} {:<{width[type]}} {:<{width[price]}} "
+            "{:<{width[price]}} {:<{width[price]}} {:<{width[price]}} "
+            "{:<{width[volume]}}".format(
+                "Time",
+                "Type",
+                "Open",
+                "High",
+                "Low",
+                "Close",
+                "Volume",
+                width=self.width
+            )
+        )
 
         print("{} {} {} {} {} {} {}".format(
             "=" * self.width['time'],
@@ -35,7 +39,7 @@ class CandlePrinter(object):
             "=" * self.width['price'],
             "=" * self.width['volume']
         ))
-        
+
     def print_candle(self, candle):
         try:
             time = str(
@@ -44,7 +48,7 @@ class CandlePrinter(object):
                     "%Y-%m-%dT%H:%M:%S.000000000Z"
                 )
             )
-        except:
+        except Exception:
             time = candle.time.split(".")[0]
 
         volume = candle.volume
@@ -55,16 +59,20 @@ class CandlePrinter(object):
             if c is None:
                 continue
 
-            print("{:>{width[time]}} {:>{width[type]}} {:>{width[price]}} {:>{width[price]}} {:>{width[price]}} {:>{width[price]}} {:>{width[volume]}}".format(
-                time,
-                price,
-                c.o,
-                c.h,
-                c.l,
-                c.c,
-                volume,
-                width=self.width
-            ))
+            print(
+                "{:>{width[time]}} {:>{width[type]}} {:>{width[price]}} "
+                "{:>{width[price]}} {:>{width[price]}} {:>{width[price]}} "
+                "{:>{width[volume]}}".format(
+                    time,
+                    price,
+                    c.o,
+                    c.h,
+                    c.l,
+                    c.c,
+                    volume,
+                    width=self.width
+                )
+            )
 
             volume = ""
             time = ""

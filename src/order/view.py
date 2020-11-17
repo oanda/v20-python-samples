@@ -29,14 +29,14 @@ def print_orders(orders):
     # Mapping from Order type to human-readable name
     #
     order_names = {
-        "STOP" : "Stop",
-        "LIMIT" : "Limit",
-        "MARKET" : "Market",
-        "MARKET_IF_TOUCHED" : "Entry",
-        "ONE_CANCELS_ALL" : "One Cancels All",
-        "TAKE_PROFIT" : "Take Profit",
-        "STOP_LOSS" : "Stop Loss",
-        "TRAILING_STOP_LOSS" : "Trailing Stop Loss"
+        "STOP": "Stop",
+        "LIMIT": "Limit",
+        "MARKET": "Market",
+        "MARKET_IF_TOUCHED": "Entry",
+        "ONE_CANCELS_ALL": "One Cancels All",
+        "TAKE_PROFIT": "Take Profit",
+        "STOP_LOSS": "Stop Loss",
+        "TRAILING_STOP_LOSS": "Trailing Stop Loss"
     }
 
     #
@@ -135,6 +135,6 @@ def print_order_create_response_transactions(response):
 
     common.view.print_response_entity(
         response, None,
-        "Replacing Order Cancel", 
+        "Replacing Order Cancel",
         "replacingOrderCancelTransaction"
     )

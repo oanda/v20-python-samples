@@ -2,7 +2,6 @@
 
 import argparse
 import common.config
-from .view import print_orders
 
 
 def main():
@@ -27,7 +26,7 @@ def main():
     args = parser.parse_args()
 
     account_id = args.config.active_account
-    
+
     api = args.config.create_context()
 
     response = api.order.list_pending(account_id)
@@ -50,7 +49,6 @@ def main():
             print(order.yaml(True))
             print("-" * 80)
 
-        
 
 if __name__ == "__main__":
     main()

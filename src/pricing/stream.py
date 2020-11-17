@@ -14,7 +14,7 @@ def main():
     parser = argparse.ArgumentParser()
 
     common.config.add_argument(parser)
-    
+
     parser.add_argument(
         '--instrument', "-i",
         type=common.args.instrument,
@@ -47,7 +47,7 @@ def main():
     args = parser.parse_args()
 
     account_id = args.config.active_account
-    
+
     api = args.config.create_streaming_context()
 
     # api.set_convert_decimal_number_to_native(False)
@@ -62,7 +62,7 @@ def main():
         snapshot=args.snapshot,
         instruments=",".join(args.instrument),
     )
-    
+
     #
     # Print out each price as it is received
     #
@@ -70,7 +70,8 @@ def main():
         if msg_type == "pricing.Heartbeat" and args.show_heartbeats:
             print(heartbeat_to_string(msg))
         elif msg_type == "pricing.Price":
-           print(price_to_string(msg))
+            print(price_to_string(msg))
+
 
 if __name__ == "__main__":
     main()

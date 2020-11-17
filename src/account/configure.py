@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 
-import sys
-import select
 import argparse
 import common.config
 from common.view import print_response_entity
-from .account import Account
 
 
 def main():

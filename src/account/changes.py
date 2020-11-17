@@ -6,6 +6,7 @@ import argparse
 import common.config
 from .account import Account
 
+
 def main():
     """
     Create an API context, and use it to fetch an Account state and then
@@ -63,7 +64,7 @@ def main():
     dump()
 
     while True:
-        i, o, e = select.select([sys.stdin], [], [], args.poll_interval)
+        i, _, _ = select.select([sys.stdin], [], [], args.poll_interval)
 
         if i:
             sys.stdin.readline()
@@ -96,6 +97,7 @@ def main():
             "lastTransactionID",
             "200"
         )
+
 
 if __name__ == "__main__":
     main()

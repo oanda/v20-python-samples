@@ -3,9 +3,7 @@
 import argparse
 import common.config
 import common.args
-from datetime import datetime
 import curses
-import random
 import time
 
 
@@ -19,9 +17,9 @@ class CandlePrinter():
         self.width = w
 
         self.field_width = {
-            'time' : 19,
-            'price' : 8,
-            'volume' : 6,
+            'time': 19,
+            'price': 8,
+            'volume': 6,
         }
 
     def set_instrument(self, instrument):
@@ -123,7 +121,6 @@ class CandlePrinter():
         self.stdscr.refresh()
 
 
-
 def main():
     """
     Create an API context, and use it to fetch candles for an instrument.
@@ -154,8 +151,6 @@ def main():
 
     args = parser.parse_args()
 
-    account_id = args.config.active_account
-
     #
     # The v20 config object creates the v20.Context for us based on the
     # contents of the config file.
@@ -171,11 +166,11 @@ def main():
         #
         # Fetch the candles
         #
-        printer = CandlePrinter(stdscr) 
+        printer = CandlePrinter(stdscr)
 
         #
-        # The printer decides how many candles can be displayed based on the size
-        # of the terminal
+        # The printer decides how many candles can be displayed based on the
+        # size of the terminal
         #
         kwargs["count"] = printer.max_candle_count()
 
@@ -202,16 +197,19 @@ def main():
         )
 
         printer.render()
-            
+
         #
         # Poll for candles updates every second and redraw
         # the results
         #
         while True:
-            time.sleep(1)
+            try:
+                time.sleep(1)
+            except KeyboardInterrupt:
+                break
 
             kwargs = {
-                'granularity': granularity, 
+                'granularity': granularity,
                 'fromTime': printer.last_candle_time()
             }
 
@@ -223,6 +221,7 @@ def main():
                 printer.render()
 
     curses.wrapper(poll_candles)
+
 
 if __name__ == "__main__":
     main()

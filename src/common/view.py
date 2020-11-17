@@ -41,7 +41,7 @@ def print_entity(entity, title=None, headers=True):
         print_title(title)
 
     headers = ["Name", "Value"]
-    headers=[]
+    headers = []
     tablefmt = "rst"
     body = []
 
@@ -70,10 +70,10 @@ def print_collection(title, entities, columns):
     Print a collection of entities with specified headers and formatters
 
     Args:
-        title: The title to pring
-        entites: The collection to print, one per row in the table
-        columns: Tuple of column header name and column row formatter to be
-                 applied to each entity in the collection
+        title: The title to print
+        entities: The collection to print, one per row in the table
+        columns:  Tuple of column header name and column row formatter to be
+                  applied to each entity in the collection
     """
 
     if len(entities) == 0:
@@ -100,7 +100,6 @@ def print_collection(title, entities, columns):
     print("")
 
 
-
 def print_response_entity(
     response,
     expected_status,
@@ -109,7 +108,7 @@ def print_response_entity(
 ):
     """
     Print a Transaction from a response object if the Transaction exists and
-    the response has the expected HTTP status code. 
+    the response has the expected HTTP status code.
 
     If the Transaction doesn't exist in the response, this function silently
     fails and nothing is printed.
@@ -117,7 +116,7 @@ def print_response_entity(
     Args:
         response: The response object to extract the Transaction from
         expected_status: The status that the response is expected to have
-        title: The title to use for the rendered Transction
+        title: The title to use for the rendered Transaction
         transaction_name: The name of the Transaction expected
     """
 
@@ -125,5 +124,5 @@ def print_response_entity(
         transaction = response.get(transaction_name, expected_status)
         print_entity(transaction, title=title)
         print("")
-    except:
+    except Exception:
         pass

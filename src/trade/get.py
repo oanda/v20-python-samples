@@ -72,7 +72,7 @@ def main():
             else:
                 print(trade.yaml(True))
                 print("-" * 80)
-        
+
         return
 
     if args.trade_id:
@@ -86,7 +86,6 @@ def main():
             print(trade.yaml(True))
 
         return
-
 
 
 if __name__ == "__main__":

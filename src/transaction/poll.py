@@ -26,15 +26,13 @@ def main():
 
     api = args.config.create_context()
 
-    kwargs = {}
-
     account_id = args.config.active_account
 
     response = api.account.summary(account_id)
 
     last_transaction_id = response.get("lastTransactionID", 200)
 
-    while True: 
+    while True:
         time.sleep(args.poll_interval)
 
         response = api.transaction.since(
@@ -47,6 +45,6 @@ def main():
 
         last_transaction_id = response.get("lastTransactionID", 200)
 
-    
+
 if __name__ == "__main__":
     main()

@@ -7,7 +7,7 @@ import common.view
 
 def main():
     """
-    Create an API context, and use it to fetch and display the tradeable 
+    Create an API context, and use it to fetch and display the tradeable
     instruments for and Account.
 
     The configuration for the context and Account to fetch is parsed from the
@@ -52,7 +52,7 @@ def main():
 
     def pipFmt(instrument):
         location = float(10 ** instrument.pipLocation)
-        return "{:.4f}".format (location)
+        return "{:.4f}".format(location)
 
     #
     # Print the details of the Account's tradeable instruments

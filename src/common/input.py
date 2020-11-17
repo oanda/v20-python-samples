@@ -10,8 +10,10 @@ def get_string(prompt, default=None):
         "" if default is None else " [{}]".format(default)
     )
 
-    try: i = raw_input
-    except NameError: i = input
+    try:
+        i = raw_input
+    except NameError:
+        i = input
 
     value = None
 
@@ -24,7 +26,7 @@ def get_string(prompt, default=None):
         except EOFError:
             print("")
             sys.exit()
-        except:
+        except Exception:
             pass
 
     return value
@@ -42,7 +44,7 @@ def get_password(prompt):
         except EOFError:
             print("")
             sys.exit()
-        except:
+        except Exception:
             pass
 
 
@@ -61,8 +63,10 @@ def get_yn(prompt, default=True):
         choices
     )
 
-    try: i = raw_input
-    except NameError: i = input
+    try:
+        i = raw_input
+    except NameError:
+        i = input
 
     while choice is None:
         try:
@@ -88,7 +92,7 @@ def get_yn(prompt, default=True):
         except EOFError:
             print("")
             sys.exit()
-        except:
+        except Exception:
             pass
 
 
@@ -106,8 +110,10 @@ def get_from_list(choices, title, prompt, default=0):
     for i, c in enumerate(choices):
         print("[{}] {}".format(i, c))
 
-    try: i = raw_input
-    except NameError: i = input
+    try:
+        i = raw_input
+    except NameError:
+        i = input
 
     while choice is None:
         try:
@@ -123,7 +129,7 @@ def get_from_list(choices, title, prompt, default=0):
         except EOFError:
             print("")
             sys.exit()
-        except:
+        except Exception:
             pass
 
     return choice

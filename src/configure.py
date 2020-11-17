@@ -3,6 +3,7 @@
 import common.config
 import common.input
 
+
 def main():
     """
     Load an existing v20.conf file, update it interactively, and save it
@@ -18,14 +19,14 @@ def main():
 
     try:
         config.load(filename)
-    except:
+    except Exception:
         print("Config file '{}' doesn't exist, starting with defaults.".format(
             filename
         ))
         print
 
     print("")
-    print("------------ Intitial v20 configuration ------------")
+    print("------------ Initial v20 configuration -------------")
     print(str(config))
     print("----------------------------------------------------")
     print("")

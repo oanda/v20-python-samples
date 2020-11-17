@@ -4,6 +4,7 @@ import argparse
 import common.config
 from .account import Account
 
+
 def main():
     """
     Create an API context, and use it to fetch and display the state of an

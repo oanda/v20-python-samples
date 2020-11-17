@@ -21,7 +21,7 @@ DEFAULT_PATH = "~/.v20.conf"
 
 class ConfigPathError(Exception):
     """
-    Exception that indicates that the path specifed for a v20 config file
+    Exception that indicates that the path specified for a v20 config file
     location doesn't exist
     """
 
@@ -48,7 +48,7 @@ class ConfigValueError(Exception):
 class Config(object):
     """
     The Config object encapsulates all of the configuration required to create
-    a v20 API context and configure it to work with a specific Account. 
+    a v20 API context and configure it to work with a specific Account.
 
     Using the Config object enables the scripts to exist without many command
     line arguments (host, token, accountID, etc)
@@ -70,7 +70,7 @@ class Config(object):
 
     def __str__(self):
         """
-        Create the string (YAML) representaion of the Config instance 
+        Create the string (YAML) representation of the Config instance
         """
 
         s = ""
@@ -103,7 +103,8 @@ class Config(object):
 
     def load(self, path):
         """
-        Load the YAML config representation from a file into the Config instance
+        Load the YAML config representation from a file into the Config
+        instance
 
         Args:
             path: The location to read the config YAML from
@@ -113,7 +114,7 @@ class Config(object):
 
         try:
             with open(os.path.expanduser(path)) as f:
-                y = yaml.load(f)
+                y = yaml.load(f, Loader=yaml.FullLoader)
                 self.hostname = y.get("hostname", self.hostname)
                 self.streaming_hostname = y.get(
                     "streaming_hostname", self.streaming_hostname
@@ -126,8 +127,10 @@ class Config(object):
                 self.active_account = y.get(
                     "active_account", self.active_account
                 )
-                self.datetime_format = y.get("datetime_format", self.datetime_format)
-        except:
+                self.datetime_format = y.get(
+                    "datetime_format", self.datetime_format
+                )
+        except Exception:
             raise ConfigPathError(path)
 
     def validate(self):
@@ -179,7 +182,7 @@ class Config(object):
 
         try:
             index = hostnames.index(self.hostname)
-        except:
+        except Exception:
             pass
 
         environment = input.get_from_list(
@@ -190,12 +193,14 @@ class Config(object):
         )
 
         index = environments.index(environment)
-        
+
         self.hostname = hostnames[index]
         self.streaming_hostname = streaming_hostnames[index]
 
         print("> API host selected is: {}".format(self.hostname))
-        print("> Streaming host selected is: {}".format(self.streaming_hostname))
+        print(
+            "> Streaming host selected is: {}".format(self.streaming_hostname)
+        )
         print("")
 
         self.username = input.get_string("Enter username", self.username)
@@ -203,7 +208,9 @@ class Config(object):
         print("> username is: {}".format(self.username))
         print("")
 
-        self.token = input.get_string("Enter personal access token", self.token)
+        self.token = input.get_string(
+            "Enter personal access token", self.token
+        )
 
         print("> Using personal access token: {}".format(self.token))
 
@@ -243,7 +250,7 @@ class Config(object):
 
         try:
             index = self.accounts.index(self.active_account)
-        except:
+        except Exception:
             pass
 
         print("")
@@ -264,7 +271,7 @@ class Config(object):
 
         try:
             index = time_formats.index(self.datetime_format)
-        except:
+        except Exception:
             pass
 
         self.datetime_format = input.get_from_list(
@@ -307,7 +314,7 @@ class Config(object):
 
 def make_config_instance(path):
     """
-    Create a Config instance, load its state from the provided path and 
+    Create a Config instance, load its state from the provided path and
     ensure that it is valid.
 
     Args:
@@ -325,7 +332,7 @@ def make_config_instance(path):
 
 def default_config_path():
     """
-    Calculate the default configuration file path. 
+    Calculate the default configuration file path.
 
     The default is first selected to be the contents of the V20_CONF
     environment variable, followed by the default path ~/.v20.conf

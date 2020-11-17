@@ -53,7 +53,7 @@ def print_positions(positions, open_only=True):
     """
 
     filtered_positions = [
-        p for p in positions 
+        p for p in positions
         if not open_only or p.long.units != "0" or p.short.units != "0"
     ]
 
@@ -62,7 +62,7 @@ def print_positions(positions, open_only=True):
 
     #
     # Print the Trades in a table with their Instrument, realized PL,
-    # unrealized PL long postion summary and shor position summary
+    # unrealized PL long postion summary and short position summary
     #
     common.view.print_collection(
         "{} {}Positions".format(

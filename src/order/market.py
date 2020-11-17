@@ -3,7 +3,6 @@
 import argparse
 import common.config
 from .args import OrderArguments
-from v20.order import MarketOrderRequest
 from .view import print_order_create_response_transactions
 
 
@@ -60,6 +59,7 @@ def main():
     print("")
 
     print_order_create_response_transactions(response)
+
 
 if __name__ == "__main__":
     main()

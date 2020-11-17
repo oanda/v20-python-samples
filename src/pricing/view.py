@@ -6,6 +6,7 @@ def price_to_string(price):
         price.asks[0].price
     )
 
+
 def heartbeat_to_string(heartbeat):
     return "HEARTBEAT ({})".format(
         heartbeat.time

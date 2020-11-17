@@ -4,7 +4,6 @@ import argparse
 import common.config
 import common.args
 from .view import CandlePrinter
-from datetime import datetime
 
 
 def main():
@@ -30,25 +29,25 @@ def main():
     )
 
     parser.add_argument(
-        "--mid", 
+        "--mid",
         action='store_true',
         help="Get midpoint-based candles"
     )
 
     parser.add_argument(
-        "--bid", 
+        "--bid",
         action='store_true',
         help="Get bid-based candles"
     )
 
     parser.add_argument(
-        "--ask", 
+        "--ask",
         action='store_true',
         help="Get ask-based candles"
     )
 
     parser.add_argument(
-        "--smooth", 
+        "--smooth",
         action='store_true',
         help="'Smooth' the candles"
     )
@@ -67,20 +66,24 @@ def main():
         help="The number of candles to fetch"
     )
 
-    date_format = "%Y-%m-%d %H:%M:%S"
-
     parser.add_argument(
         "--from-time",
         default=None,
         type=common.args.date_time(),
-        help="The start date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
+        help=(
+            "The start date for the candles to be fetched. "
+            "Format is 'YYYY-MM-DD HH:MM:SS'"
+        )
     )
 
     parser.add_argument(
         "--to-time",
         default=None,
         type=common.args.date_time(),
-        help="The end date for the candles to be fetched. Format is 'YYYY-MM-DD HH:MM:SS'"
+        help=(
+            "The end date for the candles to be fetched. "
+            "Format is 'YYYY-MM-DD HH:MM:SS'"
+        )
     )
 
     parser.add_argument(
@@ -90,8 +93,6 @@ def main():
     )
 
     args = parser.parse_args()
-
-    account_id = args.config.active_account
 
     #
     # The v20 config object creates the v20.Context for us based on the
@@ -119,19 +120,14 @@ def main():
     if args.alignment_timezone is not None:
         kwargs["alignmentTimezone"] = args.alignment_timezone
 
-    price = "mid"
-
     if args.mid:
         kwargs["price"] = "M" + kwargs.get("price", "")
-        price = "mid"
 
     if args.bid:
         kwargs["price"] = "B" + kwargs.get("price", "")
-        price = "bid"
 
     if args.ask:
         kwargs["price"] = "A" + kwargs.get("price", "")
-        price = "ask"
 
     #
     # Fetch the candles
@@ -149,8 +145,6 @@ def main():
     printer = CandlePrinter()
 
     printer.print_header()
-
-    candles = response.get("candles", 200)
 
     for candle in response.get("candles", 200):
         printer.print_candle(candle)
