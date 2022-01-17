@@ -1,6 +1,6 @@
 # v20-python-samples
 
-This repo contains a suite of Python sample code that desmonstrates the use of
+This repo contains a suite of Python sample code that demonstrates the use of
 OANDA's v20 REST API along with OANDA's v20 bindings for Python.
 
 ## Setup
