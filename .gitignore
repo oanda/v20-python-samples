@@ -4,3 +4,8 @@ env-python2/
 build/
 *.sw*
 *.egg-info
+
+
+# PB
+
+.idea/
