@@ -3,6 +3,7 @@
 import argparse
 import common.config
 import common.view
+import v20
 
 
 def main():
@@ -35,7 +36,7 @@ def main():
     #
     # Fetch the tradeable instruments for the Account found in the config file
     #
-    response = api.account.instruments(account_id)
+    response: v20.response.Response = api.account.instruments(account_id)
 
     #
     # Extract the list of Instruments from the response.

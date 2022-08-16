@@ -9,3 +9,4 @@ build/
 # PB
 
 .idea/
+cmake*/
