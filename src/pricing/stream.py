@@ -67,10 +67,12 @@ def main():
     # Print out each price as it is received
     #
     for msg_type, msg in response.parts():
-        if msg_type == "pricing.Heartbeat" and args.show_heartbeats:
+        if msg_type == "pricing.PricingHeartbeat" and args.show_heartbeats:
             print(heartbeat_to_string(msg))
-        elif msg_type == "pricing.Price":
+        elif msg_type == "pricing.ClientPrice":
             print(price_to_string(msg))
+        else:
+            print(f'type {msg_type}, msg {msg}')
 
 
 if __name__ == "__main__":
